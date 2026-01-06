@@ -14,41 +14,6 @@ services:
             - dev-network
         restart: unless-stopped
 
-    nginx:
-        image: nginx:alpine
-        container_name: web-sekolah-nginx
-        restart: unless-stopped
-        ports:
-            - "8001:80"
-        volumes:
-            - ./:/var/www/html:z
-            - ./docker/nginx/conf.d:/etc/nginx/conf.d
-        depends_on:
-            - app
-        networks:
-            - dev-network
-
-    master-db:
-        image: mariadb:latest
-        container_name: master-db
-        environment:
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
-            MYSQL_DATABASE: ${DB_DATABASE:-cms_sekolah}
-        volumes:
-            - master-db-data:/var/lib/mysql
-        ports:
-            - "3306:3306"
-        networks:
-            - dev-network
-        restart: unless-stopped
-        profiles:
-            - with-db
-
 networks:
     dev-network:
         external: true
-
-volumes:
-    master-db-data:
-        external: true
-        name: mysql-pma_mariadb_data

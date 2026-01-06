@@ -66,7 +66,7 @@
                         
                         {{-- Description --}}
                         <div class="prose prose-lg dark:prose-invert max-w-none">
-                            {!! $event->description !!}
+                            {!! \App\Helpers\HtmlSanitizer::clean($event->description) !!}
                         </div>
                     </div>
                 </div>

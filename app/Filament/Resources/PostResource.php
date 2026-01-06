@@ -69,6 +69,8 @@ class PostResource extends Resource
                                     ->helperText('Disarankan ukuran 1280x720 pixel (Rasio 16:9). Format JPG/PNG, Maksimal 2MB.')
                                     ->image()
                                     ->imageEditor()
+                                    ->maxSize(2048) // 2MB
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                     ->directory('posts/thumbnails')
                                     ->columnSpanFull(),
                             ]),

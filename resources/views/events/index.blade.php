@@ -1,13 +1,7 @@
 <x-layouts.app :settings="$settings ?? null">
+    <x-page-header title="Agenda Kegiatan" subtitle="Jadwal kegiatan dan acara sekolah" icon="fas fa-calendar-alt" />
+
     <div class="container mx-auto px-4 lg:px-8 py-12">
-        {{-- Page Header --}}
-        <div class="text-center mb-12">
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-white font-display">
-                <i class="fas fa-calendar-alt text-secondary mr-3"></i>Agenda Kegiatan
-            </h1>
-            <p class="text-gray-600 dark:text-gray-400 mt-2">Jadwal kegiatan dan acara sekolah</p>
-        </div>
-        
         {{-- Upcoming Events --}}
         <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-6 flex items-center">
             <span class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-white text-sm mr-3">
@@ -24,31 +18,26 @@
                          alt="{{ $event->title }}" 
                          class="w-full h-48 object-cover">
                 @else
-                    <div class="w-full h-48 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
+                    <div class="w-full h-48 bg-gradient-to-br from-primary to-blue-800 flex items-center justify-center">
                         <i class="fas fa-calendar-check text-white text-5xl opacity-50"></i>
                     </div>
                 @endif
                 <div class="p-6">
                     <div class="flex items-center text-sm text-primary dark:text-secondary mb-3">
                         <i class="far fa-calendar-alt mr-2"></i>
-                        {{ $event->event_date->translatedFormat('d F Y') }}
-                        @if($event->event_time)
-                            <span class="mx-2">•</span>
-                            <i class="far fa-clock mr-1"></i>
-                            {{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }} WIB
+                        {{ $event->start_date->translatedFormat('d F Y') }}
+                        @if($event->end_date)
+                            <span class="mx-2">-</span>
+                            {{ $event->end_date->translatedFormat('d F Y') }}
                         @endif
                     </div>
                     <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-3 line-clamp-2">
                         {{ $event->title }}
                     </h3>
+                    @if($event->location)
                     <p class="text-gray-600 dark:text-gray-400 text-sm flex items-center mb-4">
                         <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
                         {{ $event->location }}
-                    </p>
-                    @if($event->organizer)
-                    <p class="text-gray-500 dark:text-gray-500 text-xs flex items-center mb-4">
-                        <i class="fas fa-users mr-2"></i>
-                        Penyelenggara: {{ $event->organizer }}
                     </p>
                     @endif
                     <a href="{{ route('events.show', $event->slug) }}" class="inline-flex items-center text-sm font-semibold text-primary dark:text-secondary hover:underline">
@@ -57,7 +46,7 @@
                 </div>
             </div>
             @empty
-            <div class="col-span-full text-center py-12 bg-surface-light dark:bg-surface-dark rounded-xl">
+            <div class="col-span-full text-center py-12 bg-white dark:bg-surface-dark rounded-xl shadow-lg">
                 <i class="fas fa-calendar-times text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
                 <p class="text-gray-500 dark:text-gray-400">Tidak ada agenda mendatang saat ini.</p>
             </div>
@@ -86,8 +75,8 @@
                 <div class="flex items-center space-x-4">
                     <div class="w-16 h-16 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
                         <div class="text-center">
-                            <span class="block text-xl font-bold text-gray-600 dark:text-gray-400">{{ $event->event_date->format('d') }}</span>
-                            <span class="block text-xs text-gray-500">{{ $event->event_date->translatedFormat('M Y') }}</span>
+                            <span class="block text-xl font-bold text-gray-600 dark:text-gray-400">{{ $event->start_date->format('d') }}</span>
+                            <span class="block text-xs text-gray-500">{{ $event->start_date->translatedFormat('M Y') }}</span>
                         </div>
                     </div>
                     <div>

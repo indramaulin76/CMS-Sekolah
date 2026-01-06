@@ -17,14 +17,16 @@ class PageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Konten';
-    protected static ?string $modelLabel = 'Halaman';
-    protected static ?int $navigationSort = 1;
+    protected static ?string $modelLabel = 'Halaman Statis';
+    protected static ?string $pluralModelLabel = 'Halaman Statis';
+    protected static ?int $navigationSort = 5;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make('Konten Halaman')
+                    ->description('Isi konten halaman statis seperti Profil, Visi Misi, dll.')
                     ->schema([
                         Forms\Components\TextInput::make('title')
                             ->label('Judul Halaman')
@@ -36,38 +38,52 @@ class PageResource extends Resource
                         Forms\Components\TextInput::make('slug')
                             ->label('Slug URL')
                             ->required()
-                            ->unique(Page::class, 'slug', ignoreRecord: true),
+                            ->unique(Page::class, 'slug', ignoreRecord: true)
+                            ->helperText('URL halaman, contoh: profil, visi-misi'),
 
-                        Forms\Components\Select::make('layout')
-                            ->label('Layout Template')
-                            ->options([
-                                'default' => 'Default (Full Width)',
-                                'sidebar' => 'With Sidebar',
-                            ])
-                            ->default('default')
-                            ->required(),
+                        Forms\Components\FileUpload::make('thumbnail')
+                            ->label('Gambar Header')
+                            ->image()
+                            ->directory('pages/thumbnails')
+                            ->imageEditor()
+                            ->maxSize(2048) // 2MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                            ->columnSpanFull(),
 
                         Forms\Components\RichEditor::make('content')
                             ->label('Isi Konten')
                             ->required()
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDirectory('pages/content')
+                            ->toolbarButtons([
+                                'attachFiles',
+                                'blockquote',
+                                'bold',
+                                'bulletList',
+                                'codeBlock',
+                                'h2',
+                                'h3',
+                                'italic',
+                                'link',
+                                'orderedList',
+                                'redo',
+                                'strike',
+                                'underline',
+                                'undo',
+                            ])
                             ->columnSpanFull(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('SEO & Pengaturan')
+                Forms\Components\Section::make('Pengaturan')
                     ->schema([
-                        Forms\Components\Textarea::make('meta_description')
-                            ->label('Meta Description (SEO)')
-                            ->rows(3)
-                            ->columnSpanFull(),
-                        
-                        Forms\Components\TextInput::make('order')
-                            ->label('Urutan')
-                            ->numeric()
-                            ->default(0),
-
-                        Forms\Components\Toggle::make('is_published')
-                            ->label('Dipublikasikan')
-                            ->default(true),
+                        Forms\Components\Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'published' => 'Dipublikasikan',
+                            ])
+                            ->default('published')
+                            ->required(),
                     ])->collapsible(),
             ]);
     }
@@ -83,11 +99,16 @@ class PageResource extends Resource
 
                 Tables\Columns\TextColumn::make('slug')
                     ->label('Slug')
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->color('gray'),
 
-                Tables\Columns\IconColumn::make('is_published')
-                    ->label('Publik')
-                    ->boolean(),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('Status')
+                    ->colors([
+                        'warning' => 'draft',
+                        'success' => 'published',
+                    ]),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diperbarui')
@@ -95,19 +116,21 @@ class PageResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_published'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasikan',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->reorderable('order')
-            ->defaultSort('order', 'asc');
+            ->defaultSort('updated_at', 'desc');
     }
 
     public static function getRelations(): array

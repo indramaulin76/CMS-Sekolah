@@ -6,11 +6,11 @@
         {{-- Logo & Brand --}}
         <div class="flex items-center space-x-4 md:mb-0">
             <a href="{{ route('home') }}" class="flex items-center space-x-4">
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1 shadow-md">
+                <div class="w-16 h-16 flex items-center justify-center">
                     @if($settings && $settings->logo)
-                        <img src="{{ Storage::url($settings->logo) }}" alt="Logo" class="w-full h-full object-contain rounded-full">
+                        <img src="{{ Storage::url($settings->logo) }}" alt="Logo" class="w-full h-full object-contain">
                     @else
-                        <i class="fas fa-graduation-cap text-primary text-2xl"></i>
+                        <i class="fas fa-graduation-cap text-white text-3xl"></i>
                     @endif
                 </div>
                 <div>

@@ -13,53 +13,40 @@
   <img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
   <img src="https://img.shields.io/badge/PHP-8.3-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/FilamentPHP-3.x-FDAE4B?style=for-the-badge&logo=laravel&logoColor=white" alt="Filament">
-  <img src="https://img.shields.io/badge/Livewire-3.x-FB70A9?style=for-the-badge&logo=livewire&logoColor=white" alt="Livewire">
   <img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/Cloudflare-Tunnel-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Cloudflare">
 </p>
 
 ---
 
-## 📋 Daftar Isi
-
-- [Fitur](#-fitur)
-- [Tech Stack](#-tech-stack)
-- [Persyaratan Sistem](#-persyaratan-sistem)
-- [Instalasi](#-instalasi)
-  - [Menggunakan Docker (Rekomendasi)](#menggunakan-docker-rekomendasi)
-  - [Instalasi Manual](#instalasi-manual)
-- [Konfigurasi](#-konfigurasi)
-- [Struktur Proyek](#-struktur-proyek)
-- [Panel Admin](#-panel-admin)
-- [Kredensial Default](#-kredensial-default)
-- [Lisensi](#-lisensi)
-
----
-
-## ✨ Fitur
+## ✨ Fitur Utama
 
 ### 🌐 Frontend Website
-- **Beranda** - Hero section, artikel terbaru, sambutan kepala sekolah
-- **Artikel & Berita** - Sistem artikel dengan kategori dan pagination
-- **Agenda/Event** - Kalender kegiatan sekolah
-- **Galeri** - Album foto kegiatan sekolah
-- **Halaman Statis** - Profil, Visi Misi, Kontak, dll
-- **PPDB Online** - Penerimaan Peserta Didik Baru dengan formulir pendaftaran lengkap
+| Fitur | Deskripsi |
+|-------|-----------|
+| **Beranda** | Hero section, artikel terbaru, sambutan kepala sekolah |
+| **Artikel & Berita** | Sistem artikel dengan kategori dan pagination |
+| **Agenda/Event** | Kalender kegiatan sekolah |
+| **Galeri** | Album foto kegiatan sekolah |
+| **Halaman Statis** | Profil, Visi Misi, Kontak, dll |
+| **PPDB Online** | Pendaftaran siswa baru dengan formulir lengkap |
 
 ### 🛠️ Panel Admin (FilamentPHP)
-- **Manajemen Artikel** - CRUD artikel dengan rich text editor
-- **Manajemen Kategori** - Organisasi artikel berdasarkan kategori
-- **Manajemen Event** - Kelola agenda dan kegiatan sekolah
-- **Galeri Foto** - Upload dan kelola album foto
-- **Halaman Statis** - Kelola konten halaman profil, visi misi, dll
-- **Kepala Sekolah** - Kelola data dan sambutan kepala sekolah
-- **PPDB** - Kelola periode dan pendaftaran siswa baru
-- **Manajemen User** - Kelola pengguna admin
+- Manajemen Artikel, Kategori, Event, Galeri
+- Halaman Statis dengan Rich Text Editor
+- PPDB: Periode pendaftaran & verifikasi siswa
+- Dashboard statistik dengan widget
+- Export PDF kartu pendaftaran
 
-### 🎨 Desain & UX
-- Responsive design untuk semua perangkat
-- Modern UI dengan Tailwind CSS
-- Animasi smooth dengan Alpine.js
-- SEO-friendly
+### 🔒 Fitur Keamanan
+- ✅ Role-based Access Control (Admin/Superadmin)
+- ✅ XSS Protection dengan HtmlSanitizer
+- ✅ CSRF Protection
+- ✅ reCAPTCHA v3 pada form PPDB
+- ✅ Rate Limiting pada endpoint sensitif
+- ✅ Soft Deletes untuk audit trail
+- ✅ Input validation & sanitization
+- ✅ Trusted Proxy untuk Cloudflare Tunnel
 
 ---
 
@@ -72,296 +59,129 @@
 | **FilamentPHP** | 3.x | Admin Panel |
 | **Livewire** | 3.x | Dynamic Components |
 | **Tailwind CSS** | 3.x | Styling Framework |
-| **Alpine.js** | - | JavaScript Framework |
-| **Vite** | - | Build Tool |
-| **MariaDB/MySQL** | - | Database |
-| **Nginx** | Alpine | Web Server |
+| **MariaDB/MySQL** | 10.x | Database |
 | **Docker** | - | Containerization |
+| **Nginx** | Alpine | Web Server |
 
 ---
 
-## 💻 Persyaratan Sistem
+## 🚀 Quick Start
 
-### Menggunakan Docker
-- Docker Engine 20.10+
-- Docker Compose 2.0+
-- 2GB RAM minimum
+### Development (Docker)
 
-### Instalasi Manual
-- PHP >= 8.3
-- Composer 2.x
-- Node.js >= 18.x & NPM
-- MySQL 8.x / MariaDB 10.x
-- Git
+```bash
+# Clone repository
+git clone https://github.com/username/CMS-Sekolah.git
+cd CMS-Sekolah
 
----
+# Setup environment
+cp .env.example .env
 
-## 🚀 Instalasi
+# Buat network & jalankan
+docker network create dev-network
+docker compose up -d
 
-### Menggunakan Docker (Rekomendasi)
+# Setup Laravel
+docker compose exec app sh
+composer install
+php artisan key:generate
+php artisan migrate --seed
+npm install && npm run build
+php artisan storage:link
+exit
+```
 
-1. **Clone Repository**
-   ```bash
-   git clone <repository-url> web-sekolah
-   cd web-sekolah
-   ```
+**Akses:**
+- Website: http://localhost:8001
+- Admin Panel: http://localhost:8001/admin
 
-2. **Setup Environment**
-   ```bash
-   cp .env.example .env
-   ```
+### Production (Docker + Cloudflare Tunnel)
 
-3. **Buat Docker Network (jika belum ada)**
-   ```bash
-   docker network create dev-network
-   ```
+📖 Lihat **[panduandeploy.md](panduandeploy.md)** untuk panduan lengkap.
 
-4. **Jalankan Container**
-   ```bash
-   # Tanpa database (gunakan database eksternal)
-   docker compose up -d
-
-   # Dengan database built-in
-   docker compose --profile with-db up -d
-   ```
-
-5. **Install Dependencies & Setup**
-   ```bash
-   # Masuk ke container
-   docker exec -it web-sekolah-app sh
-
-   # Install PHP dependencies
-   composer install
-
-   # Generate application key
-   php artisan key:generate
-
-   # Jalankan migrasi & seeder
-   php artisan migrate --seed
-
-   # Install & build assets
-   npm install
-   npm run build
-
-   # Create storage link
-   php artisan storage:link
-   ```
-
-6. **Akses Aplikasi**
-   - Website: http://localhost:8001
-   - Panel Admin: http://localhost:8001/admin
+```bash
+# Quick production setup
+cp env.production.example .env
+docker compose -f docker-compose.production.yml up -d
+```
 
 ---
 
-### Instalasi Manual
+## 🔐 Kredensial Default
 
-1. **Clone Repository**
-   ```bash
-   git clone <repository-url> web-sekolah
-   cd web-sekolah
-   ```
+> ⚠️ **PENTING**: Segera ganti password setelah instalasi!
 
-2. **Install PHP Dependencies**
-   ```bash
-   composer install
-   ```
-
-3. **Setup Environment**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-
-4. **Konfigurasi Database**
-   
-   Edit file `.env`:
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=cms_sekolah
-   DB_USERNAME=root
-   DB_PASSWORD=your_password
-   ```
-
-5. **Jalankan Migrasi & Seeder**
-   ```bash
-   php artisan migrate --seed
-   ```
-
-6. **Install & Build Frontend Assets**
-   ```bash
-   npm install
-   npm run build
-   ```
-
-7. **Create Storage Link**
-   ```bash
-   php artisan storage:link
-   ```
-
-8. **Jalankan Development Server**
-   ```bash
-   # Opsi 1: Menggunakan composer script (recommended)
-   composer dev
-
-   # Opsi 2: Manual
-   php artisan serve
-   npm run dev  # di terminal terpisah
-   ```
-
-9. **Akses Aplikasi**
-   - Website: http://localhost:8000
-   - Panel Admin: http://localhost:8000/admin
-
----
-
-## ⚙️ Konfigurasi
-
-### Environment Variables
-
-| Variable | Deskripsi | Default |
-|----------|-----------|---------|
-| `APP_NAME` | Nama aplikasi | SMA Tunas Harapan |
-| `APP_ENV` | Environment (local/production) | local |
-| `APP_URL` | URL aplikasi | http://localhost |
-| `DB_HOST` | Host database | mysql |
-| `DB_DATABASE` | Nama database | cms_sekolah |
-| `DB_USERNAME` | Username database | sail |
-| `DB_PASSWORD` | Password database | password |
-| `RECAPTCHA_SITE_KEY` | Google reCAPTCHA site key | - |
-| `RECAPTCHA_SECRET_KEY` | Google reCAPTCHA secret key | - |
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@smatunasharapan.sch.id` | `password` |
 
 ---
 
 ## 📁 Struktur Proyek
 
 ```
-web-sekolah/
+CMS-Sekolah/
 ├── app/
-│   ├── Enums/              # PHP Enums (Status, Types)
-│   ├── Filament/           # FilamentPHP Admin Panel
-│   │   ├── Pages/          # Custom admin pages
-│   │   └── Resources/      # CRUD Resources
-│   │       ├── CategoryResource.php
-│   │       ├── EventResource.php
-│   │       ├── GalleryResource.php
-│   │       ├── HeadmasterResource.php
-│   │       ├── PageResource.php
-│   │       ├── PostResource.php
-│   │       ├── PpdbPeriodResource.php
-│   │       ├── PpdbRegistrationResource.php
-│   │       └── UserResource.php
-│   ├── Mail/               # Email templates
+│   ├── Filament/           # Admin Panel Resources
+│   ├── Helpers/            # HtmlSanitizer, dll
 │   ├── Models/             # Eloquent Models
-│   └── Rules/              # Custom validation rules
-├── config/                 # Configuration files
-├── database/
-│   ├── migrations/         # Database migrations
-│   └── seeders/            # Database seeders
-├── docker/
-│   └── nginx/              # Nginx configuration
-├── public/                 # Public assets
-├── resources/
-│   ├── css/                # Stylesheets
-│   ├── js/                 # JavaScript files
-│   └── views/              # Blade templates
-│       ├── components/     # Reusable components
-│       ├── posts/          # Article pages
-│       ├── events/         # Event pages
-│       ├── gallery/        # Gallery pages
-│       ├── pages/          # Static pages
-│       └── ppdb/           # PPDB pages
-├── routes/                 # Route definitions
-├── storage/                # Storage files
-├── docker-compose.yml      # Docker Compose config
-├── Dockerfile              # Docker build config
-└── README.md               # This file
+│   └── Rules/              # Custom Validation (ReCaptcha)
+├── config/                 # Configuration
+├── database/migrations/    # Database Schema
+├── docker/nginx/           # Nginx Configuration
+├── resources/views/        # Blade Templates
+├── routes/                 # Route Definitions
+├── docker-compose.yml            # Development
+├── docker-compose.production.yml # Production
+├── env.production.example        # Production Env Template
+└── panduandeploy.md              # Deployment Guide
 ```
 
 ---
 
-## 🔐 Panel Admin
-
-Akses panel admin di `/admin` dengan fitur:
-
-| Modul | Deskripsi |
-|-------|-----------|
-| **Posts** | Kelola artikel, berita, dan pengumuman |
-| **Categories** | Kelola kategori artikel |
-| **Events** | Kelola agenda dan kegiatan sekolah |
-| **Gallery** | Kelola album dan foto galeri |
-| **Pages** | Kelola halaman statis (Profil, Visi Misi, dll) |
-| **Headmasters** | Kelola data kepala sekolah |
-| **PPDB Periods** | Kelola periode PPDB |
-| **PPDB Registrations** | Kelola pendaftaran siswa baru |
-| **Users** | Kelola pengguna admin |
-
----
-
-## 🔑 Kredensial Default
-
-> ⚠️ **PENTING**: Segera ganti password setelah instalasi untuk keamanan!
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | `admin@smatunasharapan.sch.id` | `password` |
-| Humas | `humas@smatunasharapan.sch.id` | `password` |
-| Kesiswaan | `kesiswaan@smatunasharapan.sch.id` | `password` |
-
----
-
-## 📝 Development Commands
+## � Docker Commands
 
 ```bash
-# Jalankan development server dengan hot reload
-composer dev
-
-# Jalankan queue worker
-php artisan queue:work
-
-# Clear semua cache
-php artisan optimize:clear
-
-# Regenerate autoload
-composer dump-autoload
-
-# Format kode dengan Laravel Pint
-./vendor/bin/pint
-
-# Jalankan tests
-php artisan test
-```
-
----
-
-## 🐳 Docker Commands
-
-```bash
-# Start containers
+# Development
 docker compose up -d
-
-# Stop containers
-docker compose down
-
-# View logs
 docker compose logs -f
+docker compose exec app sh
 
-# Masuk ke container app
-docker exec -it web-sekolah-app sh
-
-# Rebuild container
-docker compose build --no-cache
+# Production
+docker compose -f docker-compose.production.yml up -d
+docker compose -f docker-compose.production.yml logs -f
 ```
+
+---
+
+## 📝 Maintenance
+
+```bash
+# Clear cache
+docker compose exec app php artisan optimize:clear
+
+# Run migrations
+docker compose exec app php artisan migrate --force
+
+# Rebuild assets
+docker compose exec app npm run build
+```
+
+---
+
+## 📄 Dokumentasi
+
+- 📖 [Panduan Deploy Production](panduandeploy.md)
+- 🔧 [Environment Variables](env.production.example)
 
 ---
 
 ## 📄 Lisensi
 
-Proyek ini bersifat **proprietary** dan dikembangkan khusus untuk SMA Tunas Harapan.
+Proyek ini dikembangkan untuk SMA Tunas Harapan.
 
 ---
 
 <p align="center">
-  Made with ❤️ using Laravel
+  Made with ❤️ using Laravel & FilamentPHP
 </p>

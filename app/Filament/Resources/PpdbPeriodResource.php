@@ -67,31 +67,31 @@ class PpdbPeriodResource extends Resource
                 Forms\Components\Section::make('Jadwal Pendaftaran')
                     ->columns(3)
                     ->schema([
-                        Forms\Components\DatePicker::make('start_date')
+                        Forms\Components\DatePicker::make('registration_start')
                             ->label('Tanggal Mulai')
                             ->required()
                             ->native(false),
                         
-                        Forms\Components\DatePicker::make('end_date')
+                        Forms\Components\DatePicker::make('registration_end')
                             ->label('Tanggal Selesai')
                             ->required()
                             ->native(false)
-                            ->afterOrEqual('start_date'),
+                            ->afterOrEqual('registration_start'),
                         
                         Forms\Components\DatePicker::make('announcement_date')
                             ->label('Tanggal Pengumuman')
                             ->native(false)
-                            ->afterOrEqual('end_date'),
+                            ->afterOrEqual('registration_end'),
                     ]),
                 
-                Forms\Components\Section::make('Jalur Pendaftaran')
-                    ->schema([
-                        Forms\Components\CheckboxList::make('active_paths')
-                            ->label('Jalur yang Dibuka')
-                            ->options(RegistrationPath::toSelectArray())
-                            ->columns(2)
-                            ->helperText('Kosongkan untuk membuka semua jalur'),
-                    ]),
+                // Forms\Components\Section::make('Jalur Pendaftaran')
+                //     ->schema([
+                //         Forms\Components\CheckboxList::make('active_paths')
+                //             ->label('Jalur yang Dibuka')
+                //             ->options(RegistrationPath::toSelectArray())
+                //             ->columns(2)
+                //             ->helperText('Kosongkan untuk membuka semua jalur'),
+                //     ]),
                 
                 Forms\Components\Section::make('Deskripsi')
                     ->collapsible()
@@ -107,18 +107,16 @@ class PpdbPeriodResource extends Resource
                 
                 Forms\Components\Section::make('Status')
                     ->schema([
-                        Forms\Components\Toggle::make('is_active')
-                            ->label('Aktif')
-                            ->default(true)
-                            ->helperText('Periode yang tidak aktif tidak akan ditampilkan'),
-                        
-                        Forms\Components\Toggle::make('announcement_published')
-                            ->label('Publikasikan Pengumuman')
-                            ->default(false)
-                            ->helperText('Aktifkan untuk menampilkan daftar siswa yang diterima di halaman publik')
-                            ->onIcon('heroicon-m-megaphone')
-                            ->offIcon('heroicon-m-eye-slash')
-                            ->onColor('success'),
+                        Forms\Components\Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'active' => 'Aktif',
+                                'closed' => 'Ditutup',
+                            ])
+                            ->required()
+                            ->default('draft')
+                            ->helperText('Hanya periode aktif yang akan ditampilkan di halaman depan'),
                     ]),
             ]);
     }
@@ -146,37 +144,38 @@ class PpdbPeriodResource extends Resource
                     ->counts('registrations')
                     ->sortable(),
                 
-                Tables\Columns\TextColumn::make('start_date')
+                Tables\Columns\TextColumn::make('registration_start')
                     ->label('Mulai')
                     ->date('d M Y')
                     ->sortable(),
                 
-                Tables\Columns\TextColumn::make('end_date')
+                Tables\Columns\TextColumn::make('registration_end')
                     ->label('Selesai')
                     ->date('d M Y')
                     ->sortable(),
                 
-                Tables\Columns\BadgeColumn::make('status_label')
+                Tables\Columns\TextColumn::make('status')
                     ->label('Status')
-                    ->colors([
-                        'gray' => 'Tidak Aktif',
-                        'info' => 'Akan Datang',
-                        'danger' => 'Selesai',
-                        'success' => 'Dibuka',
-                    ]),
-                
-                Tables\Columns\IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'gray',
+                        'active' => 'success',
+                        'closed' => 'danger',
+                        default => 'gray',
+                    }),
             ])
-            ->defaultSort('start_date', 'desc')
+            ->defaultSort('registration_start', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('academic_year')
                     ->label('Tahun Ajaran')
                     ->options(fn () => PpdbPeriod::pluck('academic_year', 'academic_year')->toArray()),
                 
-                Tables\Filters\TernaryFilter::make('is_active')
-                    ->label('Status Aktif'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'active' => 'Aktif',
+                        'closed' => 'Ditutup',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

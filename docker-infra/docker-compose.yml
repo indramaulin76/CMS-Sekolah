@@ -1,0 +1,21 @@
+services:
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "8001:8001" # web-sekolah
+      - "8002:8002" # sop-inventory
+      # Tambahkan port baru di sini untuk project lain
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # Mount semua project untuk akses static files
+      - /home/indra/Dokumen/Project/CMS-Sekolah:/var/www/web-sekolah:ro
+      - /home/indra/Project/sop-inventory-2.0:/var/www/sop-inventory:ro
+    networks:
+      - dev-network
+    restart: unless-stopped
+
+networks:
+  dev-network:
+    external: true

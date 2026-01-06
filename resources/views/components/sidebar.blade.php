@@ -65,14 +65,52 @@
     </div>
     @endif
     
+    {{-- Video Widget --}} 
+    @if(isset($settings->sidebar_video_url) && $settings->sidebar_video_url)
+        @php
+            $videoUrl = $settings->sidebar_video_url;
+            $embedUrl = null;
+            
+            // Extract YouTube video ID and create embed URL (supports watch, embed, live, and youtu.be)
+            if (preg_match('/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $videoUrl, $matches)) {
+                $videoId = $matches[1];
+                $embedUrl = "https://www.youtube-nocookie.com/embed/" . $videoId;
+            }
+        @endphp
+        
+        @if($embedUrl)
+        <div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm p-6 mb-8 border border-gray-100 dark:border-gray-700">
+            <h4 class="text-lg font-bold text-gray-800 dark:text-white mb-4 border-l-4 border-secondary pl-3">Video Terbaru</h4>
+            
+            <div class="aspect-video rounded-lg overflow-hidden shadow-md">
+                <iframe src="{{ $embedUrl }}" 
+                        title="YouTube video player" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen 
+                        class="w-full h-full">
+                </iframe>
+            </div>
+        </div>
+        @endif
+    @endif
+    
     {{-- Popular Links Widget --}}
-    <div class="bg-surface-light dark:bg-surface-dark p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+    @php
+        $links = \App\Models\Link::where('is_active', true)->orderBy('order', 'asc')->get();
+    @endphp
+
+    @if($links->count() > 0)
+    <div class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm p-6 mb-8 border border-gray-100 dark:border-gray-700">
         <h4 class="text-lg font-bold text-gray-800 dark:text-white mb-4 border-l-4 border-secondary pl-3">Tautan Populer</h4>
+        
         <div class="flex flex-wrap gap-2">
-            <a href="{{ route('posts.index') }}" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 rounded hover:bg-primary hover:text-white transition-colors">Berita</a>
-            <a href="{{ route('events.index') }}" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 rounded hover:bg-primary hover:text-white transition-colors">Agenda</a>
-            <a href="{{ route('pages.profil') }}" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 rounded hover:bg-primary hover:text-white transition-colors">Profil</a>
-            <a href="{{ route('pages.kontak') }}" class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-xs text-gray-600 dark:text-gray-300 rounded hover:bg-primary hover:text-white transition-colors">Kontak</a>
+            @foreach($links as $link)
+            <a href="{{ $link->url }}" target="{{ $link->target }}" class="px-4 py-2 bg-gray-50 dark:bg-gray-700 hover:bg-secondary hover:text-primary text-gray-600 dark:text-gray-300 rounded-lg text-sm font-medium transition-colors duration-300">
+                {{ $link->title }}
+            </a>
+            @endforeach
         </div>
     </div>
+    @endif
 </aside>

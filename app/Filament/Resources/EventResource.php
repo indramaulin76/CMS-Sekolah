@@ -78,6 +78,8 @@ class EventResource extends Resource
                             ->label('Gambar')
                             ->image()
                             ->imageEditor()
+                            ->maxSize(2048) // 2MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->directory('events'),
 
                         Forms\Components\Toggle::make('is_published')

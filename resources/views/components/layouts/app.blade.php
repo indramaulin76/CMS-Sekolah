@@ -9,6 +9,13 @@
     <meta name="description" content="{{ $settings->meta_description ?? 'Website resmi SMA Tunas Harapan' }}">
     <meta name="keywords" content="{{ $settings->meta_keywords ?? '' }}">
 
+    <!-- Favicon -->
+    @if($settings && $settings->logo)
+        <link rel="icon" type="image/png" href="{{ Storage::url($settings->logo) }}">
+    @else
+        <link rel="icon" href="{{ asset('favicon.ico') }}">
+    @endif
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,14 +1,12 @@
 <x-layouts.app :settings="$settings ?? null">
+    <x-page-header title="Hubungi Kami" icon="fas fa-address-book" />
+
     <div class="container mx-auto px-4 lg:px-8 py-12">
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-3xl font-bold text-gray-800 dark:text-white font-display text-center mb-8">
-                Hubungi Kami
-            </h1>
-            
+        <div class="max-w-5xl mx-auto">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {{-- Contact Info --}}
                 <div class="space-y-6">
-                    <div class="bg-primary text-white rounded-xl p-6">
+                    <div class="bg-primary text-white rounded-xl p-6 shadow-lg">
                         <h3 class="text-xl font-bold mb-4 font-display">Informasi Kontak</h3>
                         
                         <div class="space-y-4">
@@ -77,7 +75,7 @@
                             </a>
                             @endif
                             @if($settings && $settings->tiktok_url)
-                            <a href="{{ $settings->tiktok_url }}" target="_blank" class="w-12 h-12 bg-gray-900 text-white rounded-lg flex items-center justify-center hover:bg-gray-800 transition-colors" style="background-color: #000000;">
+                            <a href="{{ $settings->tiktok_url }}" target="_blank" class="w-12 h-12 bg-gray-900 text-white rounded-lg flex items-center justify-center hover:bg-gray-800 transition-colors">
                                 <i class="fa-brands fa-tiktok text-xl"></i>
                             </a>
                             @endif
@@ -111,7 +109,7 @@
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Pesan</label>
                             <textarea name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-primary-700 transition-colors">
+                        <button type="submit" class="w-full bg-primary text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition-colors">
                             <i class="fas fa-paper-plane mr-2"></i> Kirim Pesan
                         </button>
                     </form>
@@ -121,7 +119,8 @@
             {{-- Map --}}
             @if($settings && $settings->map_embed_link)
             <div class="mt-8 bg-white dark:bg-surface-dark rounded-xl shadow-lg overflow-hidden">
-                <div class="aspect-video">
+                <style>.map-responsive iframe { width: 100% !important; height: 100% !important; border: 0; }</style>
+                <div class="aspect-video w-full map-responsive">
                     {!! $settings->map_embed_link !!}
                 </div>
             </div>

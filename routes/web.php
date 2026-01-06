@@ -38,8 +38,12 @@ Route::get('/sambutan-kepala-sekolah', [PageController::class, 'sambutanKepsek']
 use App\Http\Controllers\PpdbController;
 Route::get('/ppdb', [PpdbController::class, 'index'])->name('ppdb.index');
 Route::post('/ppdb/register', [PpdbController::class, 'store'])->name('ppdb.register');
-Route::get('/ppdb/sukses/{code}', [PpdbController::class, 'success'])->name('ppdb.success');
-Route::get('/ppdb/cetak/{code}', [PpdbController::class, 'printCard'])->name('ppdb.print');
+Route::get('/ppdb/sukses/{code}', [PpdbController::class, 'success'])
+    ->name('ppdb.success')
+    ->middleware('throttle:10,1'); // Max 10 requests per minute
+Route::get('/ppdb/cetak/{code}', [PpdbController::class, 'printCard'])
+    ->name('ppdb.print')
+    ->middleware('throttle:5,10'); // Max 5 requests per 10 minutes
 Route::get('/ppdb/pengumuman', [PpdbController::class, 'announcement'])->name('ppdb.announcement');
 
 // Gallery
@@ -51,4 +55,4 @@ Route::get('/galeri/{slug}', [GalleryController::class, 'show'])->name('gallerie
 Route::get('/cari', [PostController::class, 'search'])->name('posts.search');
 
 // Admin Export (protected by auth middleware in controller)
-Route::get('/admin/ppdb/export-pdf', [PpdbController::class, 'exportPdf'])->name('admin.ppdb.export-pdf')->middleware('auth');
+Route::get('/admin/ppdb/export-pdf/{code}', [PpdbController::class, 'exportPdf'])->name('admin.ppdb.export-pdf')->middleware('auth');

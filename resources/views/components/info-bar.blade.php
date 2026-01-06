@@ -18,7 +18,7 @@
                     <p class="text-gray-300 leading-relaxed text-sm">
                         {{ $settings->address ?? 'Alamat belum diisi' }}
                     </p>
-                    <a href="#" class="inline-flex items-center mt-4 text-sm font-semibold text-secondary hover:text-white transition-colors">
+                    <a href="{{ $settings->google_maps_link ?? '#' }}" target="_blank" class="inline-flex items-center mt-4 text-sm font-semibold text-secondary hover:text-white transition-colors">
                         Lihat di Peta <i class="fas fa-arrow-right ml-2 text-xs"></i>
                     </a>
                 </div>

@@ -1,0 +1,48 @@
+# Laravel Project Docker Template
+# ================================
+# Ganti APP_NAME sesuai nama project
+# Ganti APP_PORT sesuai port yang diinginkan (8001, 8002, dst)
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${APP_NAME:-laravel}-app
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APP_ENV=${APP_ENV:-local}
+      - DB_HOST=master-db
+      - DB_PORT=3306
+    networks:
+      - dev-network
+    restart: unless-stopped
+    depends_on:
+      - master-db
+
+  # Opsional: Jalankan jika belum ada master-db
+  master-db:
+    image: mariadb:latest
+    container_name: master-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-secret}
+      MYSQL_DATABASE: ${DB_DATABASE:-laravel}
+    volumes:
+      - master-db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - dev-network
+    restart: unless-stopped
+    profiles:
+      - with-db # Hanya jalan kalau pakai --profile with-db
+
+networks:
+  dev-network:
+    external: true
+
+volumes:
+  master-db-data:
+    external: true
+    name: mysql-pma_mariadb_data # Pakai volume yang sudah ada

@@ -40,9 +40,8 @@
                 </div>
                 @endif
                 
-                {{-- Article Content --}}
                 <div class="prose prose-lg dark:prose-invert max-w-none mb-12">
-                    {!! $post->content !!}
+                    {!! \App\Helpers\HtmlSanitizer::clean($post->content) !!}
                 </div>
                 
                 {{-- Share Buttons --}}

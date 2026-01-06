@@ -54,8 +54,8 @@ class PpdbRegistrationResource extends Resource
                         Forms\Components\Select::make('gender')
                             ->label('2. Jenis Kelamin')
                             ->options([
-                                'Laki-laki' => 'Laki-laki',
-                                'Perempuan' => 'Perempuan',
+                                'male' => 'Laki-laki',
+                                'female' => 'Perempuan',
                             ])
                             ->required()
                             ->native(false),
@@ -90,61 +90,55 @@ class PpdbRegistrationResource extends Resource
                             ->unique(ignoreRecord: true)
                             ->helperText('10 digit angka'),
                         
-                        Forms\Components\TextInput::make('nik')
-                            ->label('8. NIK')
-                            ->maxLength(16)
-                            ->helperText('16 digit angka'),
-                    ]),
-
-                // ========================================
-                // SECTION 2: KONTAK & ASAL SEKOLAH
-                // ========================================
-                Forms\Components\Section::make('Kontak & Asal Sekolah')
-                    ->columns(2)
-                    ->schema([
-                        Forms\Components\TextInput::make('school_origin')
+                        Forms\Components\TextInput::make('previous_school')
                             ->label('7. Asal Sekolah (SMP/MTs)')
                             ->maxLength(200)
                             ->columnSpanFull(),
-                        
-                        Forms\Components\TextInput::make('student_phone')
-                            ->label('13. Nomor HP Siswa (WA Aktif)')
-                            ->tel()
-                            ->maxLength(20),
-                    ]),
 
-                // ========================================
-                // SECTION 3: DATA ORANG TUA & KK
-                // ========================================
-                Forms\Components\Section::make('Data Orang Tua & Kartu Keluarga')
-                    ->columns(2)
-                    ->schema([
+                        Forms\Components\TextInput::make('nik')
+                            ->label('8. NIK Siswa')
+                            ->maxLength(16)
+                            ->helperText('16 digit angka'),
+                        
                         Forms\Components\TextInput::make('kk_number')
                             ->label('9. Nomor Kartu Keluarga')
                             ->maxLength(16)
                             ->helperText('16 digit angka'),
-                        
+
+                    ]),
+
+                // ========================================
+                // SECTION 2: DATA ORANG TUA & KONTAK
+                // ========================================
+                Forms\Components\Section::make('Data Orang Tua & Kontak')
+                    ->columns(2)
+                    ->schema([
                         Forms\Components\TextInput::make('parent_name')
-                            ->label('10. Nama Ayah / Ibu')
+                            ->label('10. Nama Orang Tua (Ayah/Ibu)')
                             ->maxLength(150),
-                        
+
                         Forms\Components\Textarea::make('parent_address')
                             ->label('11. Alamat Orang Tua')
                             ->rows(2)
                             ->columnSpanFull(),
                         
-                        Forms\Components\TextInput::make('parent_job')
-                            ->label('12. Pekerjaan Ortu')
+                        Forms\Components\TextInput::make('parent_occupation')
+                            ->label('12. Pekerjaan Orang Tua')
                             ->maxLength(100),
                         
+                        Forms\Components\TextInput::make('phone')
+                            ->label('13. Nomor HP Siswa (WA Aktif)')
+                            ->tel()
+                            ->maxLength(20),
+
                         Forms\Components\TextInput::make('parent_phone')
-                            ->label('14. Nomor HP Orang Tua')
+                            ->label('14. Nomor HP Orang Tua (WA Aktif)')
                             ->tel()
                             ->maxLength(20),
                     ]),
 
                 // ========================================
-                // SECTION 4: VERIFIKASI (ADMIN ONLY)
+                // SECTION 3: VERIFIKASI (ADMIN ONLY)
                 // ========================================
                 Forms\Components\Section::make('Verifikasi (Admin)')
                     ->columns(3)
@@ -255,7 +249,6 @@ class PpdbRegistrationResource extends Resource
                 Tables\Filters\TernaryFilter::make('files_submitted')
                     ->label('Berkas Dikumpulkan'),
                 
-                Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
                 Tables\Actions\ActionGroup::make([
@@ -294,14 +287,11 @@ class PpdbRegistrationResource extends Resource
                         ->action(fn (PpdbRegistration $record, array $data) => $record->reject($data['reason'])),
                     
                     Tables\Actions\DeleteAction::make(),
-                    Tables\Actions\RestoreAction::make(),
                 ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -385,7 +375,7 @@ class PpdbRegistrationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\DocumentsRelationManager::class,
+            // DocumentsRelationManager removed - documents is a JSON column, not a relationship
         ];
     }
 
@@ -399,13 +389,7 @@ class PpdbRegistrationResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
-    {
-        return parent::getEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
-    }
+
     
     public static function getNavigationBadge(): ?string
     {

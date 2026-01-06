@@ -81,6 +81,14 @@ class Settings extends Page implements Forms\Contracts\HasForms
                                     ->url(),
                                 Forms\Components\Textarea::make('map_embed_link')
                                     ->label('Google Maps Embed Code'),
+                                Forms\Components\TextInput::make('google_maps_link')
+                                    ->label('Link Google Maps')
+                                    ->url()
+                                    ->placeholder('https://maps.google.com/...'),
+                                Forms\Components\TextInput::make('sidebar_video_url')
+                                    ->label('Video Sidebar (YouTube URL)')
+                                    ->url()
+                                    ->placeholder('https://www.youtube.com/watch?v=...'),
                             ]),
                         
                         Forms\Components\Tabs\Tab::make('Hero Section')

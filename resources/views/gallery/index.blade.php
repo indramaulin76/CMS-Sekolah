@@ -1,20 +1,19 @@
 <x-layouts.app :settings="$settings ?? null">
-    <div class="container mx-auto px-4 lg:px-8 py-12">
-        <h1 class="text-3xl font-bold text-gray-800 dark:text-white font-display text-center mb-12">
-            Galeri Foto
-        </h1>
+    <x-page-header title="Galeri Foto" icon="fas fa-images" />
 
+    <div class="container mx-auto px-4 lg:px-8 py-12">
         @if($galleries->isEmpty())
-            <div class="text-center py-10 text-gray-500 bg-white dark:bg-surface-dark rounded-xl shadow-lg">
-                <p>Belum ada album foto.</p>
+            <div class="text-center py-16 text-gray-500 bg-white dark:bg-surface-dark rounded-xl shadow-lg max-w-2xl mx-auto">
+                <i class="fas fa-images text-5xl mb-4 text-gray-300"></i>
+                <p class="text-lg">Belum ada album foto.</p>
             </div>
         @else
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($galleries as $gallery)
                 <a href="{{ route('galleries.show', $gallery->slug) }}" class="group block bg-white dark:bg-surface-dark rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
                     <div class="relative h-64 overflow-hidden">
-                        @if($gallery->cover_image)
-                            <img src="{{ Storage::url($gallery->cover_image) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                        @if($gallery->thumbnail)
+                            <img src="{{ Storage::url($gallery->thumbnail) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                         @else
                             <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
                                 <i class="fas fa-images text-gray-400 text-5xl"></i>
@@ -29,6 +28,12 @@
                 </a>
                 @endforeach
             </div>
+            
+            @if($galleries->hasPages())
+            <div class="mt-8">
+                {{ $galleries->links() }}
+            </div>
+            @endif
         @endif
     </div>
 </x-layouts.app>

@@ -45,7 +45,7 @@ class GalleryResource extends Resource
                             ->rows(3)
                             ->columnSpanFull(),
 
-                        Forms\Components\FileUpload::make('cover_image')
+                        Forms\Components\FileUpload::make('thumbnail')
                             ->label('Cover Album')
                             ->image()
                             ->directory('galleries/covers')
@@ -53,9 +53,14 @@ class GalleryResource extends Resource
                             ->maxSize(2048) // 2MB
                             ->helperText('Format: JPG/PNG. Maks: 2MB. Resolusi saran: 1200x600 px (Rasio 2:1).'),
 
-                        Forms\Components\Toggle::make('is_published')
-                            ->label('Dipublikasikan')
-                            ->default(true),
+                        Forms\Components\Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'published' => 'Dipublikasikan',
+                            ])
+                            ->required()
+                            ->default('published'),
                     ])
                     ->columns(2),
 
@@ -63,7 +68,6 @@ class GalleryResource extends Resource
                     ->description('Upload foto-foto kegiatan di sini.')
                     ->schema([
                         Forms\Components\Repeater::make('images')
-                            ->relationship()
                             ->schema([
                                 Forms\Components\FileUpload::make('image')
                                     ->label('Foto')
@@ -78,7 +82,6 @@ class GalleryResource extends Resource
                                     ->label('Keterangan (Opsional)')
                                     ->columnSpan(2),
                             ])
-                            ->orderColumn('order')
                             ->defaultItems(0)
                             ->label('Daftar Foto')
                             ->grid(2)
@@ -92,7 +95,7 @@ class GalleryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('cover_image')
+                Tables\Columns\ImageColumn::make('thumbnail')
                     ->label('Cover')
                     ->size(80),
 
@@ -101,14 +104,17 @@ class GalleryResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('images_count')
-                    ->counts('images')
+                Tables\Columns\TextColumn::make('images')
                     ->label('Jumlah Foto')
-                    ->badge(),
+                    ->formatStateUsing(fn ($state) => is_array($state) ? count($state) . ' Foto' : '0 Foto'),
 
-                Tables\Columns\IconColumn::make('is_published')
-                    ->label('Publik')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'draft' => 'gray',
+                        'published' => 'success',
+                    }),
 
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label('Diperbarui')
@@ -116,7 +122,11 @@ class GalleryResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_published'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasikan',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

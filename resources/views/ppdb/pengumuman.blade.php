@@ -1,22 +1,20 @@
 <x-layouts.app :settings="$settings ?? null">
-    <div class="container mx-auto px-4 lg:px-8 py-12">
+    <x-page-header 
+        title="Pengumuman Hasil PPDB" 
+        :subtitle="'Tahun Ajaran ' . $period->academic_year"
+        icon="fas fa-bullhorn"
+    />
+    
+    <div class="container mx-auto px-4 lg:px-8 pb-12">
         <div class="max-w-5xl mx-auto">
-            {{-- Header --}}
-            <div class="text-center mb-10">
-                <span class="inline-block px-4 py-2 mb-4 text-xs font-bold tracking-wider text-primary uppercase bg-secondary rounded-full shadow">
-                    Tahun Ajaran {{ $period->academic_year }}
-                </span>
-                <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white font-display mb-4">
-                    <i class="fas fa-bullhorn text-secondary mr-2"></i>
-                    Pengumuman Hasil PPDB
-                </h1>
+            <div class="mb-8 text-center">
                 <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
                     Berikut adalah daftar calon peserta didik baru yang <strong class="text-green-600">DITERIMA</strong> di SMA Tunas Harapan.
                 </p>
             </div>
 
             {{-- Period Info --}}
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-8 mb-8 shadow-sm border border-gray-100 dark:border-gray-700">
+            <div class="bg-white dark:bg-surface-dark rounded-xl p-8 mb-8 shadow-lg border-t-4 border-secondary">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200 dark:divide-gray-700">
                     <div class="py-2 md:py-0">
                         <div class="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium uppercase tracking-wide">Periode</div>

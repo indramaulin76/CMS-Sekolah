@@ -42,6 +42,8 @@ class HeadmasterResource extends Resource
                             ->image()
                             ->imageEditor()
                             ->avatar()
+                            ->maxSize(2048) // 2MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->directory('headmasters'),
 
                         Forms\Components\Textarea::make('quote')
@@ -120,7 +122,7 @@ class HeadmasterResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->defaultSort('order');
+            ->defaultSort('period_start', 'desc');
     }
 
     public static function getPages(): array

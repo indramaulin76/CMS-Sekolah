@@ -4,112 +4,145 @@
     <meta charset="UTF-8">
     <title>Kartu Pendaftaran PPDB</title>
     <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
         }
         body {
             font-family: 'DejaVu Sans', sans-serif;
-            font-size: 12px;
-            line-height: 1.4;
+            font-size: 11px;
+            line-height: 1.3;
             color: #333;
+            background: #eee;
+            padding: 20px;
         }
         .card {
             width: 100%;
-            max-width: 700px;
+            max-width: 210mm; /* A4 Width */
             margin: 0 auto;
-            border: 3px solid #1e3a5f;
-            border-radius: 10px;
+            background: white;
+            border: 2px solid #1e3a5f;
+            border-radius: 0;
             overflow: hidden;
+            position: relative;
+            min-height: 290mm; /* A4 Height approx */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .card {
+                border: none;
+                box-shadow: none;
+                min-height: auto;
+                max-width: 100%;
+            }
         }
         .header {
             background: #1e3a5f;
             color: white;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
         }
         .header h1 {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 16px;
+            margin-bottom: 2px;
         }
         .header p {
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.9;
         }
         .title-bar {
             background: #ffd700;
             color: #1e3a5f;
-            padding: 8px;
+            padding: 6px;
             text-align: center;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 12px;
+            border-bottom: 1px solid #1e3a5f;
         }
         .content {
-            padding: 20px;
+            padding: 15px 25px;
         }
         .reg-code {
             background: #f0f4f8;
             border: 2px dashed #1e3a5f;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            margin-bottom: 20px;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            border-radius: 6px;
         }
         .reg-code .label {
-            font-size: 10px;
+            font-size: 9px;
             color: #666;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .reg-code .code {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: bold;
             color: #1e3a5f;
             letter-spacing: 3px;
         }
         .info-section {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         .info-section h3 {
             background: #e2e8f0;
-            padding: 8px 10px;
-            font-size: 11px;
+            padding: 5px 8px;
+            font-size: 10px;
             color: #1e3a5f;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             border-left: 4px solid #1e3a5f;
+            text-transform: uppercase;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 10px;
         }
         table td {
-            padding: 6px 10px;
+            padding: 4px 8px;
             border-bottom: 1px solid #eee;
             vertical-align: top;
         }
         table td:first-child {
-            width: 35%;
+            width: 30%;
             font-weight: 600;
             color: #555;
         }
         .photo-box {
-            width: 100px;
-            height: 130px;
-            border: 1px solid #ccc;
+            width: 3cm;
+            height: 4cm;
+            border: 1px dashed #ccc;
+            background: #fafafa;
             display: flex;
             align-items: center;
             justify-content: center;
             float: right;
-            margin-left: 20px;
+            margin-left: 15px;
             font-size: 9px;
-            color: #999;
+            color: #aaa;
             text-align: center;
         }
         .footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: #f8f9fa;
-            padding: 15px 20px;
-            border-top: 2px solid #e2e8f0;
-            font-size: 10px;
+            padding: 10px 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 9px;
             display: flex;
             justify-content: space-between;
         }
@@ -122,7 +155,8 @@
         .signature {
             margin-top: 20px;
             text-align: right;
-            padding-right: 30px;
+            padding-right: 20px;
+            margin-bottom: 40px;
         }
         .signature .date {
             font-size: 10px;
@@ -133,14 +167,17 @@
             padding-top: 5px;
             display: inline-block;
             min-width: 150px;
+            font-weight: bold;
+            font-size: 10px;
         }
         .note {
             background: #fff3cd;
             border: 1px solid #ffc107;
-            padding: 10px;
+            padding: 8px;
             margin-top: 15px;
-            font-size: 10px;
-            border-radius: 5px;
+            font-size: 9px;
+            border-radius: 4px;
+            color: #856404;
         }
         .clearfix::after {
             content: "";
@@ -207,11 +244,11 @@
                 <table>
                     <tr>
                         <td>Asal Sekolah</td>
-                        <td>{{ $registration->school_origin }}</td>
+                        <td>{{ $registration->previous_school }}</td>
                     </tr>
                     <tr>
                         <td>No. HP Siswa</td>
-                        <td>{{ $registration->student_phone }}</td>
+                        <td>{{ $registration->phone }}</td>
                     </tr>
                 </table>
             </div>
@@ -253,5 +290,10 @@
             </div>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            window.print();
+        }
+    </script>
 </body>
 </html>

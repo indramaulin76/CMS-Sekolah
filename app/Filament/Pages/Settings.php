@@ -96,7 +96,8 @@ class Settings extends Page implements Forms\Contracts\HasForms
                                 Forms\Components\FileUpload::make('hero_image')
                                     ->label('Gambar Hero')
                                     ->image()
-                                    ->directory('settings'),
+                                    ->directory('settings')
+                                    ->helperText('Rekomendasi ukuran: 1920x1080 px (16:9). Minimal: 1280x720 px.'),
                                 Forms\Components\TextInput::make('hero_title')
                                     ->label('Judul Hero'),
                                 Forms\Components\Textarea::make('hero_subtitle')

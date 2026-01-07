@@ -2,7 +2,7 @@
 
 {{-- Hero Section --}}
 <section class="relative bg-gray-900">
-    <div class="relative h-[400px] md:h-[500px] lg:h-[600px] w-full overflow-hidden">
+    <div class="relative h-[350px] md:h-[450px] lg:h-[500px] w-full overflow-hidden">
         @if($settings && $settings->hero_image)
             <img src="{{ Storage::url($settings->hero_image) }}" 
                  alt="SMA Tunas Harapan" 

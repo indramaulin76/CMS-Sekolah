@@ -23,14 +23,6 @@ class ListPpdbRegistrations extends ListRecords
                 ->action(function () {
                     return $this->exportToCsv();
                 }),
-            
-            // Export to PDF (opens print dialog)
-            Actions\Action::make('exportPdf')
-                ->label('Export PDF')
-                ->icon('heroicon-o-document-arrow-down')
-                ->color('danger')
-                ->url(fn () => route('admin.ppdb.export-pdf'))
-                ->openUrlInNewTab(),
         ];
     }
 

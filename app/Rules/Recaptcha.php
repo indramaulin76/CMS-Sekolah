@@ -35,13 +35,6 @@ class Recaptcha implements ValidationRule
 
         if (!($result['success'] ?? false)) {
             $fail('Verifikasi reCAPTCHA gagal. Silakan coba lagi.');
-            return;
-        }
-
-        // Check score for v3
-        $minScore = config('services.recaptcha.min_score', 0.5);
-        if (isset($result['score']) && $result['score'] < $minScore) {
-            $fail('Verifikasi keamanan gagal. Silakan coba lagi.');
         }
     }
 }

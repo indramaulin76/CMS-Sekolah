@@ -60,9 +60,6 @@
             <form action="{{ route('ppdb.register') }}" method="POST" class="space-y-8" id="ppdb-form">
                 @csrf
                 
-                {{-- reCAPTCHA Hidden Input --}}
-                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-                
                 {{-- Form Fields 1-14 --}}
                 <div class="bg-white dark:bg-surface-dark rounded-xl p-6 lg:p-8 shadow-lg border-t-4 border-primary">
                     <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
@@ -180,6 +177,14 @@
                     </div>
                 </div>
 
+                {{-- reCAPTCHA v2 Checkbox --}}
+                @if(config('services.recaptcha.site_key'))
+                <div class="flex justify-center my-6">
+                    <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
+                </div>
+                @error('g-recaptcha-response') <p class="text-red-500 text-xs mt-1 text-center">{{ $message }}</p> @enderror
+                @endif
+
                 {{-- Submit Button --}}
                 <div class="flex justify-end">
                     <button type="submit" class="px-8 py-4 bg-secondary text-primary font-bold rounded-xl shadow-lg hover:bg-yellow-400 transform hover:-translate-y-1 transition-all duration-300">
@@ -214,24 +219,10 @@
         </div>
     </div>
 
-    {{-- reCAPTCHA v3 Script --}}
+    {{-- reCAPTCHA v2 Script --}}
     @if(config('services.recaptcha.site_key'))
     @push('scripts')
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
-    <script>
-        const ppdbForm = document.getElementById('ppdb-form');
-        if (ppdbForm) {
-            ppdbForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'ppdb_register'}).then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
-                        ppdbForm.submit();
-                    });
-                });
-            });
-        }
-    </script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     @endpush
     @endif
 </x-layouts.app>

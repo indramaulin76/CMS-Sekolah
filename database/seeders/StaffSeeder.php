@@ -9,9 +9,6 @@ class StaffSeeder extends Seeder
 {
     public function run(): void
     {
-        // Reset cached roles and permissions
-        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
-
         $staffs = [
             [
                 'name' => 'Didi Permana, S.H.I',

@@ -66,6 +66,31 @@ class PpdbRegistration extends Model
         return $this->previous_school;
     }
 
+    /**
+     * Accessor for birth_info - combines birth_place and birth_date
+     */
+    public function getBirthInfoAttribute(): string
+    {
+        $date = $this->birth_date ? $this->birth_date->format('d-m-Y') : '-';
+        return ($this->birth_place ?? '-') . ', ' . $date;
+    }
+
+    /**
+     * Accessor for student_phone - maps to phone field
+     */
+    public function getStudentPhoneAttribute(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Accessor for parent_job - maps to parent_occupation field
+     */
+    public function getParentJobAttribute(): ?string
+    {
+        return $this->parent_occupation;
+    }
+
     public function scopePending($query)
     {
         return $query->where('status', \App\Enums\RegistrationStatus::PENDING);

@@ -37,16 +37,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Google reCAPTCHA v2 Checkbox
+    | Google reCAPTCHA v3
     |--------------------------------------------------------------------------
     |
     | Register at: https://www.google.com/recaptcha/admin
-    | Choose reCAPTCHA v2 ("I'm not a robot" Checkbox) and add your domain
+    | Choose reCAPTCHA v3 and add your domain
     |
     */
     'recaptcha' => [
         'site_key' => env('RECAPTCHA_SITE_KEY', ''),
         'secret_key' => env('RECAPTCHA_SECRET_KEY', ''),
+        'min_score' => env('RECAPTCHA_MIN_SCORE', 0.5),
     ],
 
 ];

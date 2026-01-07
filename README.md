@@ -42,7 +42,7 @@
 - ✅ Role-based Access Control (Admin/Superadmin)
 - ✅ XSS Protection dengan HtmlSanitizer
 - ✅ CSRF Protection
-- ✅ reCAPTCHA v2 (checkbox) pada form PPDB
+- ✅ reCAPTCHA v3 (invisible) pada form PPDB
 - ✅ Rate Limiting pada endpoint sensitif
 - ✅ Soft Deletes untuk audit trail
 - ✅ Input validation & sanitization

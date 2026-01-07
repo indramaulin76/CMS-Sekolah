@@ -7,12 +7,11 @@ Alpine.start();
 
 // Dark mode toggle
 document.addEventListener('DOMContentLoaded', function () {
-    // Force light mode by default (ignore system preference for now)
-    if (localStorage.theme === 'dark') {
+    // Check for saved theme preference or system preference
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.classList.add('dark');
     } else {
         document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
     }
 });
 

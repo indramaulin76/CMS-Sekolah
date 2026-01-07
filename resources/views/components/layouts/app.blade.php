@@ -27,7 +27,7 @@
     <!-- Scripts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-background-light text-text-light font-sans transition-colors duration-300 min-h-screen flex flex-col">
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-300 min-h-screen flex flex-col">
     
     {{-- Header --}}
     <x-navbar :settings="$settings" />

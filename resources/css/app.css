@@ -94,6 +94,11 @@ select:focus {
     border-radius: 0.5rem;
 }
 
+/* Hide figure captions (filename from RichEditor) */
+.prose figcaption {
+    display: none;
+}
+
 /* Card hover effects */
 .card-hover {
     transition: all 0.3s ease;

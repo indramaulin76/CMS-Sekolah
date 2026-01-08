@@ -43,7 +43,7 @@
                                         <img src="{{ Storage::url($waka->photo) }}" alt="{{ $waka->name }}" class="w-20 h-20 rounded-full object-cover mx-auto mb-3 border-2 border-secondary">
                                     @else
                                         <div class="w-20 h-20 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mx-auto mb-3">
-                                            <i class="fas fa-user text-3xl text-gray-400"></i>
+                                            <i class="fas fa-user text-3xl text-gray-200"></i>
                                         </div>
                                     @endif
                                     <div class="text-xs uppercase font-bold text-secondary mb-1">{{ $waka->position }}</div>
@@ -61,7 +61,7 @@
                 @if($others->count() > 0)
                 <div class="w-full mt-8">
                     <div class="text-center mb-8 relative">
-                        <span class="bg-gray-50 dark:bg-gray-800 px-4 text-gray-400 text-sm relative z-10 uppercase tracking-widest font-bold">Dewan Guru & Staff</span>
+                        <span class="bg-gray-50 dark:bg-gray-800 px-4 text-gray-200 text-sm relative z-10 uppercase tracking-widest font-bold">Dewan Guru & Staff</span>
                         <div class="absolute top-1/2 w-full border-t border-gray-200 -z-0"></div>
                     </div>
 
@@ -76,7 +76,7 @@
                                 </div>
                             @endif
                             <div class="font-bold text-gray-800 dark:text-gray-100 group-hover:text-primary transition">{{ $staff->name }}</div>
-                            <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $staff->position }}</div>
+                            <div class="text-sm text-gray-700 dark:text-gray-200 mt-1">{{ $staff->position }}</div>
 
                         </div>
                         @endforeach

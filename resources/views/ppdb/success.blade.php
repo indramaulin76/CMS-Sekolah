@@ -13,11 +13,11 @@
                 </div>
                 
                 <div class="bg-white dark:bg-surface-dark p-6 rounded-xl shadow-sm max-w-md mx-auto mb-6">
-                    <p class="text-sm text-gray-500 mb-1">Kode Pendaftaran Anda:</p>
+                    <p class="text-sm text-gray-700 mb-1">Kode Pendaftaran Anda:</p>
                     <div class="text-3xl font-mono font-bold text-primary tracking-wider select-all">
                         {{ $registration->registration_code }}
                     </div>
-                    <p class="text-xs text-gray-400 mt-2">Simpan kode ini untuk mengecek status pendaftaran.</p>
+                    <p class="text-xs text-gray-200 mt-2">Simpan kode ini untuk mengecek status pendaftaran.</p>
                 </div>
 
                 {{-- Print Card Button --}}
@@ -28,7 +28,7 @@
                     </a>
                 </div>
 
-                <div class="text-gray-600 dark:text-gray-300 space-y-4 text-left p-6 bg-white/50 dark:bg-black/10 rounded-xl">
+                <div class="text-gray-800 dark:text-gray-300 space-y-4 text-left p-6 bg-white/50 dark:bg-black/10 rounded-xl">
                     <h3 class="font-bold text-lg mb-2 text-center">Langkah Selanjutnya:</h3>
                     <ul class="space-y-3">
                         <li class="flex items-start">

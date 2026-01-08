@@ -3,7 +3,7 @@
 
     <div class="container mx-auto px-4 lg:px-8 py-12">
         @if(empty($gallery->images))
-             <div class="text-center py-16 text-gray-500 bg-white dark:bg-surface-dark rounded-xl shadow-lg max-w-2xl mx-auto">
+             <div class="text-center py-16 text-gray-700 bg-white dark:bg-surface-dark rounded-xl shadow-lg max-w-2xl mx-auto">
                 <i class="fas fa-images text-5xl mb-4 text-gray-300"></i>
                 <p class="text-lg">Album ini belum memiliki foto.</p>
             </div>

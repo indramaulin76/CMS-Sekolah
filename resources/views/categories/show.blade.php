@@ -9,7 +9,7 @@
                         <i class="fas fa-tag text-secondary mr-3"></i>{{ $category->name }}
                     </h1>
                     @if($category->description)
-                    <p class="text-gray-600 dark:text-gray-400 mt-2">{{ $category->description }}</p>
+                    <p class="text-gray-800 dark:text-gray-200 mt-2">{{ $category->description }}</p>
                     @endif
                 </div>
                 
@@ -19,8 +19,8 @@
                         <x-article-card :post="$post" />
                     @empty
                         <div class="text-center py-12 bg-surface-light dark:bg-surface-dark rounded-xl">
-                            <i class="far fa-folder-open text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                            <p class="text-gray-500 dark:text-gray-400">Belum ada artikel dalam kategori ini.</p>
+                            <i class="far fa-folder-open text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                            <p class="text-gray-700 dark:text-gray-200">Belum ada artikel dalam kategori ini.</p>
                         </div>
                     @endforelse
                 </div>

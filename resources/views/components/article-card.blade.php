@@ -26,7 +26,7 @@
     <div class="p-6 md:w-2/3 flex flex-col justify-between">
         <div>
             {{-- Meta --}}
-            <div class="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2 space-x-3">
+            <div class="flex items-center text-xs text-gray-700 dark:text-gray-200 mb-2 space-x-3">
                 <span><i class="far fa-calendar mr-1"></i> {{ $post->published_at?->translatedFormat('d M Y') ?? '-' }}</span>
                 <span><i class="far fa-user mr-1"></i> {{ $post->user?->name ?? 'Admin' }}</span>
                 @if($post->views_count > 0)
@@ -40,7 +40,7 @@
             </h4>
             
             {{-- Excerpt --}}
-            <p class="text-gray-600 dark:text-gray-300 text-sm line-clamp-2 mb-4">
+            <p class="text-gray-800 dark:text-gray-300 text-sm line-clamp-2 mb-4">
                 {{ $post->excerpt }}
             </p>
         </div>

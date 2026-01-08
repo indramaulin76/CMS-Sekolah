@@ -35,7 +35,7 @@
                         {{ $event->title }}
                     </h3>
                     @if($event->location)
-                    <p class="text-gray-600 dark:text-gray-400 text-sm flex items-center mb-4">
+                    <p class="text-gray-800 dark:text-gray-200 text-sm flex items-center mb-4">
                         <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
                         {{ $event->location }}
                     </p>
@@ -47,8 +47,8 @@
             </div>
             @empty
             <div class="col-span-full text-center py-12 bg-white dark:bg-surface-dark rounded-xl shadow-lg">
-                <i class="fas fa-calendar-times text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                <p class="text-gray-500 dark:text-gray-400">Tidak ada agenda mendatang saat ini.</p>
+                <i class="fas fa-calendar-times text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                <p class="text-gray-700 dark:text-gray-200">Tidak ada agenda mendatang saat ini.</p>
             </div>
             @endforelse
         </div>
@@ -75,13 +75,13 @@
                 <div class="flex items-center space-x-4">
                     <div class="w-16 h-16 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
                         <div class="text-center">
-                            <span class="block text-xl font-bold text-gray-600 dark:text-gray-400">{{ $event->start_date->format('d') }}</span>
-                            <span class="block text-xs text-gray-500">{{ $event->start_date->translatedFormat('M Y') }}</span>
+                            <span class="block text-xl font-bold text-gray-800 dark:text-gray-200">{{ $event->start_date->format('d') }}</span>
+                            <span class="block text-xs text-gray-700">{{ $event->start_date->translatedFormat('M Y') }}</span>
                         </div>
                     </div>
                     <div>
                         <h4 class="font-semibold text-gray-700 dark:text-gray-300">{{ $event->title }}</h4>
-                        <p class="text-sm text-gray-500">{{ $event->location }}</p>
+                        <p class="text-sm text-gray-700">{{ $event->location }}</p>
                     </div>
                 </div>
                 <a href="{{ route('events.show', $event->slug) }}" class="text-primary dark:text-secondary text-sm hover:underline">

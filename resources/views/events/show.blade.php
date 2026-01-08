@@ -1,7 +1,7 @@
 <x-layouts.app :settings="$settings ?? null">
     <div class="container mx-auto px-4 lg:px-8 py-12">
         {{-- Breadcrumb --}}
-        <nav class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <nav class="text-sm text-gray-700 dark:text-gray-200 mb-6">
             <a href="{{ route('home') }}" class="hover:text-primary">Beranda</a>
             <span class="mx-2">/</span>
             <a href="{{ route('events.index') }}" class="hover:text-primary">Agenda</a>
@@ -30,7 +30,7 @@
                             <div class="flex items-center p-4 bg-primary/10 dark:bg-primary/20 rounded-lg">
                                 <i class="far fa-calendar-alt text-2xl text-primary mr-4"></i>
                                 <div>
-                                    <span class="block text-sm text-gray-500 dark:text-gray-400">Tanggal</span>
+                                    <span class="block text-sm text-gray-700 dark:text-gray-200">Tanggal</span>
                                     <span class="font-semibold text-gray-800 dark:text-white">{{ $event->event_date->translatedFormat('l, d F Y') }}</span>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                             <div class="flex items-center p-4 bg-secondary/10 dark:bg-secondary/20 rounded-lg">
                                 <i class="far fa-clock text-2xl text-secondary mr-4"></i>
                                 <div>
-                                    <span class="block text-sm text-gray-500 dark:text-gray-400">Waktu</span>
+                                    <span class="block text-sm text-gray-700 dark:text-gray-200">Waktu</span>
                                     <span class="font-semibold text-gray-800 dark:text-white">{{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }} WIB</span>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                             <div class="flex items-center p-4 bg-green-500/10 dark:bg-green-500/20 rounded-lg">
                                 <i class="fas fa-map-marker-alt text-2xl text-green-500 mr-4"></i>
                                 <div>
-                                    <span class="block text-sm text-gray-500 dark:text-gray-400">Lokasi</span>
+                                    <span class="block text-sm text-gray-700 dark:text-gray-200">Lokasi</span>
                                     <span class="font-semibold text-gray-800 dark:text-white">{{ $event->location }}</span>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                             <div class="flex items-center p-4 bg-purple-500/10 dark:bg-purple-500/20 rounded-lg">
                                 <i class="fas fa-users text-2xl text-purple-500 mr-4"></i>
                                 <div>
-                                    <span class="block text-sm text-gray-500 dark:text-gray-400">Penyelenggara</span>
+                                    <span class="block text-sm text-gray-700 dark:text-gray-200">Penyelenggara</span>
                                     <span class="font-semibold text-gray-800 dark:text-white">{{ $event->organizer }}</span>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                     <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-primary dark:group-hover:text-secondary line-clamp-2">
                                         {{ $upcoming->title }}
                                     </h4>
-                                    <span class="text-xs text-gray-500">{{ $upcoming->event_date->translatedFormat('M Y') }}</span>
+                                    <span class="text-xs text-gray-700">{{ $upcoming->event_date->translatedFormat('M Y') }}</span>
                                 </div>
                             </div>
                         </a>

@@ -34,8 +34,8 @@
             </div>
             @else
             <div class="text-center py-12 bg-white dark:bg-surface-dark rounded-xl shadow-lg">
-                <i class="fas fa-user-tie text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                <p class="text-gray-500 dark:text-gray-400">Data Kepala Sekolah belum tersedia.</p>
+                <i class="fas fa-user-tie text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                <p class="text-gray-700 dark:text-gray-200">Data Kepala Sekolah belum tersedia.</p>
             </div>
             @endif
         </div>

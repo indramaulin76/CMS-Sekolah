@@ -8,7 +8,7 @@
                     <h1 class="text-3xl font-bold text-gray-800 dark:text-white font-display">
                         <i class="fas fa-search text-secondary mr-3"></i>Hasil Pencarian
                     </h1>
-                    <p class="text-gray-600 dark:text-gray-400 mt-2">
+                    <p class="text-gray-800 dark:text-gray-200 mt-2">
                         Menampilkan hasil untuk: <strong>"{{ $query }}"</strong>
                     </p>
                 </div>
@@ -19,8 +19,8 @@
                         <x-article-card :post="$post" />
                     @empty
                         <div class="text-center py-12 bg-surface-light dark:bg-surface-dark rounded-xl">
-                            <i class="fas fa-search text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                            <p class="text-gray-500 dark:text-gray-400">Tidak ditemukan artikel untuk "{{ $query }}"</p>
+                            <i class="fas fa-search text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                            <p class="text-gray-700 dark:text-gray-200">Tidak ditemukan artikel untuk "{{ $query }}"</p>
                             <a href="{{ route('posts.index') }}" class="inline-block mt-4 text-primary hover:underline">
                                 Lihat semua artikel
                             </a>

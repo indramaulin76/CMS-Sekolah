@@ -10,7 +10,7 @@
             @if($activePeriod)
             <div class="bg-white dark:bg-surface-dark rounded-xl shadow-lg p-6 lg:p-10 border-t-4 border-secondary">
             <div class="mb-8 text-center">
-                 <p class="text-gray-600 dark:text-gray-300">
+                 <p class="text-gray-800 dark:text-gray-300">
                     Silakan lengkapi formulir di bawah ini dengan data yang benar dan valid untuk mendaftar sebagai calon siswa baru.
                 </p>
             </div>
@@ -192,12 +192,12 @@
         <div class="max-w-2xl mx-auto py-16 text-center">
             <div class="bg-white dark:bg-surface-dark rounded-xl shadow-lg p-8 border border-gray-100 dark:border-gray-700">
                 <div class="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-hourglass-start text-4xl text-gray-400 dark:text-gray-500"></i>
+                    <i class="fas fa-hourglass-start text-4xl text-gray-200 dark:text-gray-700"></i>
                 </div>
                 <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">
                     Pendaftaran Belum Dibuka
                 </h1>
-                <p class="text-gray-600 dark:text-gray-400 mb-8">
+                <p class="text-gray-800 dark:text-gray-200 mb-8">
                     Mohon maaf, pendaftaran peserta didik baru (PPDB) saat ini belum dibuka atau tidak ada periode aktif. Silakan kembali lagi nanti atau hubungi pihak sekolah untuk informasi lebih lanjut.
                 </p>
                 <div class="flex justify-center space-x-4">

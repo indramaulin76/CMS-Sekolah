@@ -54,7 +54,7 @@
                 </a>
                 @endif
             </div>
-            <p class="mt-6 text-xs text-gray-400">Ikuti kami untuk update kegiatan terbaru sekolah.</p>
+            <p class="mt-6 text-xs text-gray-200">Ikuti kami untuk update kegiatan terbaru sekolah.</p>
         </div>
     </div>
 </section>

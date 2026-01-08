@@ -8,7 +8,7 @@
     <div class="container mx-auto px-4 lg:px-8 pb-12">
         <div class="max-w-5xl mx-auto">
             <div class="mb-8 text-center">
-                <p class="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                <p class="text-gray-800 dark:text-gray-300 max-w-2xl mx-auto">
                     Berikut adalah daftar calon peserta didik baru yang <strong class="text-green-600">DITERIMA</strong> di SMA Tunas Harapan.
                 </p>
             </div>
@@ -17,15 +17,15 @@
             <div class="bg-white dark:bg-surface-dark rounded-xl p-8 mb-8 shadow-lg border-t-4 border-secondary">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200 dark:divide-gray-700">
                     <div class="py-2 md:py-0">
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium uppercase tracking-wide">Periode</div>
+                        <div class="text-sm text-gray-700 dark:text-gray-200 mb-1 font-medium uppercase tracking-wide">Periode</div>
                         <div class="font-bold text-xl text-gray-800 dark:text-white">{{ $period->name }}</div>
                     </div>
                     <div class="py-2 md:py-0">
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium uppercase tracking-wide">Total Diterima</div>
+                        <div class="text-sm text-gray-700 dark:text-gray-200 mb-1 font-medium uppercase tracking-wide">Total Diterima</div>
                         <div class="font-bold text-4xl text-yellow-500">{{ $acceptedRegistrations->count() }}</div>
                     </div>
                     <div class="py-2 md:py-0">
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mb-1 font-medium uppercase tracking-wide">Tanggal Pengumuman</div>
+                        <div class="text-sm text-gray-700 dark:text-gray-200 mb-1 font-medium uppercase tracking-wide">Tanggal Pengumuman</div>
                         <div class="font-bold text-xl text-gray-800 dark:text-white">{{ $period->announcement_date?->format('d F Y') ?? '-' }}</div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
             <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-10 text-center">
                 <i class="fas fa-info-circle text-yellow-500 text-5xl mb-4"></i>
                 <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Belum Ada Pengumuman</h3>
-                <p class="text-gray-600 dark:text-gray-400">Daftar peserta yang diterima belum tersedia. Silakan cek kembali nanti.</p>
+                <p class="text-gray-800 dark:text-gray-200">Daftar peserta yang diterima belum tersedia. Silakan cek kembali nanti.</p>
             </div>
             @else
             {{-- Search Box --}}
@@ -64,11 +64,11 @@
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                             @foreach($acceptedRegistrations as $index => $reg)
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors result-row">
-                                <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400">{{ $index + 1 }}</td>
+                                <td class="px-4 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}</td>
                                 <td class="px-4 py-4 text-sm font-mono font-bold text-primary">{{ $reg->registration_code }}</td>
                                 <td class="px-4 py-4 text-sm font-semibold text-gray-800 dark:text-white searchable">{{ $reg->full_name }}</td>
-                                <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 searchable">{{ $reg->nisn }}</td>
-                                <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400">{{ $reg->school_origin }}</td>
+                                <td class="px-4 py-4 text-sm text-gray-800 dark:text-gray-200 searchable">{{ $reg->nisn }}</td>
+                                <td class="px-4 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $reg->school_origin }}</td>
                                 <td class="px-4 py-4 text-center">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
                                         <i class="fas fa-check-circle mr-1"></i> DITERIMA
@@ -83,8 +83,8 @@
 
             {{-- No Search Results --}}
             <div id="no-results" class="hidden bg-gray-100 dark:bg-gray-800 rounded-xl p-8 text-center mt-6">
-                <i class="fas fa-search text-gray-400 text-4xl mb-3"></i>
-                <p class="text-gray-600 dark:text-gray-400">Tidak ada hasil yang cocok dengan pencarian Anda.</p>
+                <i class="fas fa-search text-gray-200 text-4xl mb-3"></i>
+                <p class="text-gray-800 dark:text-gray-200">Tidak ada hasil yang cocok dengan pencarian Anda.</p>
             </div>
             @endif
 

@@ -10,7 +10,7 @@
                    value="{{ request('q') }}"
                    class="w-full pl-4 pr-10 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" 
                    placeholder="Cari artikel...">
-            <button type="submit" class="absolute right-3 top-3 text-gray-400 hover:text-primary transition-colors">
+            <button type="submit" class="absolute right-3 top-3 text-gray-200 hover:text-primary transition-colors">
                 <i class="fas fa-search text-lg"></i>
             </button>
         </form>
@@ -55,7 +55,7 @@
             @foreach($categories as $category)
             <li>
                 <a href="{{ route('categories.show', $category->slug) }}" 
-                   class="flex justify-between items-center text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-secondary transition-colors py-2 border-b border-dashed border-gray-200 dark:border-gray-700">
+                   class="flex justify-between items-center text-gray-800 dark:text-gray-300 hover:text-primary dark:hover:text-secondary transition-colors py-2 border-b border-dashed border-gray-200 dark:border-gray-700">
                     <span>{{ $category->name }}</span>
                     <span class="bg-gray-100 dark:bg-gray-700 text-xs px-2 py-1 rounded-full">{{ $category->posts_count ?? 0 }}</span>
                 </a>
@@ -106,7 +106,7 @@
         
         <div class="flex flex-wrap gap-2">
             @foreach($links as $link)
-            <a href="{{ $link->url }}" target="{{ $link->target }}" class="px-4 py-2 bg-gray-50 dark:bg-gray-700 hover:bg-secondary hover:text-primary text-gray-600 dark:text-gray-300 rounded-lg text-sm font-medium transition-colors duration-300">
+            <a href="{{ $link->url }}" target="{{ $link->target }}" class="px-4 py-2 bg-gray-50 dark:bg-gray-700 hover:bg-secondary hover:text-primary text-gray-800 dark:text-gray-300 rounded-lg text-sm font-medium transition-colors duration-300">
                 {{ $link->title }}
             </a>
             @endforeach

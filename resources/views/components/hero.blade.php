@@ -18,10 +18,10 @@
                 <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-primary uppercase bg-secondary rounded shadow">
                     Selamat Datang
                 </span>
-                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-display leading-tight drop-shadow-md">
+                <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-display leading-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                     {!! nl2br(e($settings->hero_title ?? 'Membangun Generasi Cerdas & Berkarakter')) !!}
                 </h2>
-                <p class="text-gray-200 text-lg md:text-xl max-w-2xl drop-shadow mb-8">
+                <p class="text-white text-lg md:text-xl max-w-2xl drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)] mb-8 font-medium">
                     {{ $settings->hero_subtitle ?? 'SMA Tunas Harapan berkomitmen mencetak pemimpin masa depan yang berakhlak mulia dan berwawasan global.' }}
                 </p>
             </div>

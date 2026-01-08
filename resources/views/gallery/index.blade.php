@@ -3,7 +3,7 @@
 
     <div class="container mx-auto px-4 lg:px-8 py-12">
         @if($galleries->isEmpty())
-            <div class="text-center py-16 text-gray-500 bg-white dark:bg-surface-dark rounded-xl shadow-lg max-w-2xl mx-auto">
+            <div class="text-center py-16 text-gray-700 bg-white dark:bg-surface-dark rounded-xl shadow-lg max-w-2xl mx-auto">
                 <i class="fas fa-images text-5xl mb-4 text-gray-300"></i>
                 <p class="text-lg">Belum ada album foto.</p>
             </div>
@@ -16,7 +16,7 @@
                             <img src="{{ Storage::url($gallery->thumbnail) }}" alt="{{ $gallery->title }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
                         @else
                             <div class="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                                <i class="fas fa-images text-gray-400 text-5xl"></i>
+                                <i class="fas fa-images text-gray-200 text-5xl"></i>
                             </div>
                         @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80"></div>

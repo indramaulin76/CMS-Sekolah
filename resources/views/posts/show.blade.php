@@ -4,7 +4,7 @@
             {{-- Main Content --}}
             <div class="lg:col-span-2">
                 {{-- Breadcrumb --}}
-                <nav class="text-sm text-gray-500 dark:text-gray-400 mb-6">
+                <nav class="text-sm text-gray-700 dark:text-gray-200 mb-6">
                     <a href="{{ route('home') }}" class="hover:text-primary">Beranda</a>
                     <span class="mx-2">/</span>
                     <a href="{{ route('posts.index') }}" class="hover:text-primary">Berita</a>
@@ -24,7 +24,7 @@
                         {{ $post->title }}
                     </h1>
                     
-                    <div class="flex flex-wrap items-center text-sm text-gray-500 dark:text-gray-400 space-x-4">
+                    <div class="flex flex-wrap items-center text-sm text-gray-700 dark:text-gray-200 space-x-4">
                         <span><i class="far fa-calendar mr-1"></i> {{ $post->published_at?->translatedFormat('d F Y') }}</span>
                         <span><i class="far fa-user mr-1"></i> {{ $post->user?->name ?? 'Admin' }}</span>
                         <span><i class="far fa-eye mr-1"></i> {{ number_format($post->views_count) }} views</span>
@@ -46,7 +46,7 @@
                 
                 {{-- Share Buttons --}}
                 <div class="border-t border-gray-200 dark:border-gray-700 pt-6 mb-8">
-                    <span class="text-sm font-semibold text-gray-600 dark:text-gray-400 mr-4">Bagikan:</span>
+                    <span class="text-sm font-semibold text-gray-800 dark:text-gray-200 mr-4">Bagikan:</span>
                     <div class="inline-flex space-x-2">
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
                            target="_blank"

@@ -10,7 +10,7 @@
                         {!! $page->content !!}
                     </article>
                 @else
-                    <div class="text-center py-16 text-gray-500">
+                    <div class="text-center py-16 text-gray-700">
                          <i class="fas fa-file-alt text-5xl mb-4 text-gray-300"></i>
                          <p class="text-lg">Konten profil belum tersedia.</p>
                          <p class="text-sm mt-2">Silakan isi di <strong>Admin Panel > Halaman Statis > Profil</strong></p>

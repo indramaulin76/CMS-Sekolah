@@ -16,17 +16,19 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Force HTTPS for all generated URLs
-        URL::forceScheme('https');
+        // Force HTTPS for all generated URLs (only in production)
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
 
-        // Force Storage URLs to use HTTPS regardless of APP_URL in .env
-        $appUrl = config('app.url');
-        if ($appUrl && !str_contains($appUrl, 'https://')) {
-            $httpsUrl = str_replace('http://', 'https://', $appUrl);
-            config(['filesystems.disks.public.url' => $httpsUrl . '/storage']);
-        } else if (!$appUrl) {
-             // Fallback if APP_URL is missing
-             config(['filesystems.disks.public.url' => 'https://' . request()->getHttpHost() . '/storage']);
+            // Force Storage URLs to use HTTPS regardless of APP_URL in .env
+            $appUrl = config('app.url');
+            if ($appUrl && !str_contains($appUrl, 'https://')) {
+                $httpsUrl = str_replace('http://', 'https://', $appUrl);
+                config(['filesystems.disks.public.url' => $httpsUrl . '/storage']);
+            } else if (!$appUrl) {
+                 // Fallback if APP_URL is missing
+                 config(['filesystems.disks.public.url' => 'https://' . request()->getHttpHost() . '/storage']);
+            }
         }
 
         // Share settings globally across all views

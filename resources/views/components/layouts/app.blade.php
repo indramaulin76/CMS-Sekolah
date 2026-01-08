@@ -6,8 +6,33 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <title>{{ $title ?? ($settings->school_name ?? 'SMA Tunas Harapan') }}</title>
-    <meta name="description" content="{{ $settings->meta_description ?? 'Website resmi SMA Tunas Harapan' }}">
-    <meta name="keywords" content="{{ $settings->meta_keywords ?? '' }}">
+    
+    <!-- Essential Meta Tags -->
+    <meta name="description" content="{{ $metaDescription ?? $settings->meta_description ?? 'SMA Tunas Harapan - Sekolah Menengah Atas terbaik yang membentuk generasi cerdas, berkarakter, dan berwawasan global' }}">
+    <meta name="keywords" content="{{ $metaKeywords ?? $settings->meta_keywords ?? 'SMA Tunas Harapan, sekolah menengah atas, pendidikan berkualitas, sekolah terbaik, Jakarta' }}">
+    <meta name="author" content="{{ $settings->school_name ?? 'SMA Tunas Harapan' }}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="{{ url()->current() }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $title ?? $settings->school_name ?? 'SMA Tunas Harapan' }}">
+    <meta property="og:description" content="{{ $metaDescription ?? $settings->meta_description ?? 'SMA Tunas Harapan - Membentuk generasi cerdas dan berkarakter' }}">
+    <meta property="og:image" content="{{ $ogImage ?? ($settings->hero_image ? Storage::url($settings->hero_image) : asset('storage/settings/hero_school.png')) }}">
+    <meta property="og:site_name" content="{{ $settings->school_name ?? config('app.name') }}">
+    <meta property="og:locale" content="id_ID">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $title ?? $settings->school_name ?? 'SMA Tunas Harapan' }}">
+    <meta name="twitter:description" content="{{ $metaDescription ?? $settings->meta_description ?? 'SMA Tunas Harapan - Membentuk generasi cerdas dan berkarakter' }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? ($settings->hero_image ? Storage::url($settings->hero_image) : asset('storage/settings/hero_school.png')) }}">
+
+    <!-- Additional SEO -->
+    <meta name="geo.region" content="ID-JK">
+    <meta name="geo.placename" content="Jakarta">
 
     <!-- Favicon -->
     @if($settings && $settings->logo)

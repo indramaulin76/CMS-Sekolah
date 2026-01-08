@@ -15,7 +15,7 @@
                 <h2 class="text-2xl font-bold font-display text-gray-800 dark:text-white mb-4">
                     Pengumuman Belum Tersedia
                 </h2>
-                <p class="text-gray-600 dark:text-gray-300 mb-6">
+                <p class="text-gray-800 dark:text-gray-300 mb-6">
                     Saat ini belum ada pengumuman hasil PPDB yang dipublikasikan. 
                     Silakan cek kembali setelah tanggal pengumuman resmi.
                 </p>

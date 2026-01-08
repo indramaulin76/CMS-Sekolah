@@ -15,7 +15,7 @@
                     <h3 class="text-2xl font-bold text-primary dark:text-white flex items-center">
                         <i class="far fa-newspaper mr-3 text-secondary"></i> Artikel Terkini
                     </h3>
-                    <a href="{{ route('posts.index') }}" class="text-sm font-medium text-primary dark:text-gray-400 hover:text-secondary dark:hover:text-white transition-colors">
+                    <a href="{{ route('posts.index') }}" class="text-sm font-medium text-primary dark:text-gray-200 hover:text-secondary dark:hover:text-white transition-colors">
                         Lihat Semua
                     </a>
                 </div>
@@ -25,8 +25,8 @@
                     <x-article-card :post="$post" />
                 @empty
                     <div class="text-center py-12 bg-surface-light dark:bg-surface-dark rounded-xl">
-                        <i class="far fa-newspaper text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                        <p class="text-gray-500 dark:text-gray-400">Belum ada artikel yang dipublikasikan.</p>
+                        <i class="far fa-newspaper text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                        <p class="text-gray-700 dark:text-gray-200">Belum ada artikel yang dipublikasikan.</p>
                     </div>
                 @endforelse
             </div>
@@ -44,7 +44,7 @@
                 <h3 class="text-3xl font-bold text-gray-800 dark:text-white font-display">
                     <i class="fas fa-calendar-alt text-secondary mr-3"></i>Agenda Mendatang
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400 mt-2">Kegiatan dan acara yang akan datang</p>
+                <p class="text-gray-800 dark:text-gray-200 mt-2">Kegiatan dan acara yang akan datang</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -72,7 +72,7 @@
                         <h4 class="text-lg font-bold text-gray-800 dark:text-white mb-2 line-clamp-2">
                             {{ $event->title }}
                         </h4>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm flex items-center">
+                        <p class="text-gray-800 dark:text-gray-200 text-sm flex items-center">
                             <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
                             {{ $event->location }}
                         </p>

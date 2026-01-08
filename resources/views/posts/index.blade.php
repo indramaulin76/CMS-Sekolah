@@ -11,8 +11,8 @@
                         <x-article-card :post="$post" />
                     @empty
                         <div class="text-center py-12 bg-white dark:bg-surface-dark rounded-xl shadow-lg">
-                            <i class="far fa-newspaper text-5xl text-gray-300 dark:text-gray-600 mb-4"></i>
-                            <p class="text-gray-500 dark:text-gray-400">Belum ada artikel yang dipublikasikan.</p>
+                            <i class="far fa-newspaper text-5xl text-gray-300 dark:text-gray-800 mb-4"></i>
+                            <p class="text-gray-700 dark:text-gray-200">Belum ada artikel yang dipublikasikan.</p>
                         </div>
                     @endforelse
                 </div>

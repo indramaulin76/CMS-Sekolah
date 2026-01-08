@@ -16,7 +16,7 @@
                 {{ $title }}
             </h1>
             @if($subtitle)
-                <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm md:text-base font-light">
+                <p class="text-gray-700 dark:text-gray-200 mt-2 text-sm md:text-base font-light">
                     {{ $subtitle }}
                 </p>
             @endif

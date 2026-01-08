@@ -28,7 +28,7 @@
                 {{-- Message --}}
                 <div class="p-8">
                     <div class="prose prose-lg dark:prose-invert max-w-none">
-                        {!! $headmaster->greeting !!}
+                        {!! $headmaster->message !!}
                     </div>
                 </div>
             </div>

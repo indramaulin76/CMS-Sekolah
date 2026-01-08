@@ -73,7 +73,7 @@ class HeadmasterResource extends Resource
                             ->maxValue(2100)
                             ->helperText('Kosongkan jika masih menjabat'),
 
-                        Forms\Components\TextInput::make('order')
+                        Forms\Components\TextInput::make('display_order')
                             ->label('Urutan Tampilan')
                             ->numeric()
                             ->default(1),

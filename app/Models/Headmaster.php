@@ -8,8 +8,14 @@ class Headmaster extends Model
 {
     protected $fillable = [
         'name',
+        'position',
         'photo',
+        'quote',
+        'message',
         'greeting',
+        'start_year',
+        'end_year',
+        'display_order',
         'period_start',
         'period_end',
         'is_active',

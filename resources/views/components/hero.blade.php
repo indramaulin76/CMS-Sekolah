@@ -15,9 +15,7 @@
         
         <div class="absolute bottom-0 left-0 right-0 p-6 pb-20 md:p-12 md:pb-24 lg:p-16 lg:pb-32">
             <div class="container mx-auto">
-                <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-primary uppercase bg-secondary rounded shadow">
-                    Selamat Datang
-                </span>
+                {{-- Badge removed per user request --}}
                 <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-display leading-tight drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]">
                     {!! nl2br(e($settings->hero_title ?? 'Membangun Generasi Cerdas & Berkarakter')) !!}
                 </h2>

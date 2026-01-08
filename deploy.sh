@@ -37,8 +37,17 @@ docker compose -f docker-compose.production.yml down
 echo "🚀 Starting containers..."
 docker compose -f docker-compose.production.yml up -d
 
-echo "⏳ Waiting for database to be ready..."
+echo "⏳ Waiting for containers to be ready..."
 sleep 10
+
+echo "📦 Installing Composer dependencies..."
+docker exec cms-sekolah-app composer install --optimize-autoloader --no-dev
+
+echo "🔑 Generating APP_KEY if not set..."
+docker exec cms-sekolah-app php artisan key:generate --force
+
+echo "⏳ Waiting for database to be ready..."
+sleep 5
 
 echo "🗄️  Running migrations..."
 docker exec cms-sekolah-app php artisan migrate --force

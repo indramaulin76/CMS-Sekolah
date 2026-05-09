@@ -60,9 +60,6 @@
             <form action="{{ route('ppdb.register') }}" method="POST" class="space-y-8" id="ppdb-form">
                 @csrf
                 
-                {{-- reCAPTCHA Hidden Input --}}
-                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-                
                 {{-- Form Fields 1-14 --}}
                 <div class="bg-white dark:bg-surface-dark rounded-xl p-6 lg:p-8 shadow-lg border-t-4 border-primary">
                     <h3 class="text-xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
@@ -214,24 +211,4 @@
         </div>
     </div>
 
-    {{-- reCAPTCHA v3 Script --}}
-    @if(config('services.recaptcha.site_key'))
-    @push('scripts')
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
-    <script>
-        const ppdbForm = document.getElementById('ppdb-form');
-        if (ppdbForm) {
-            ppdbForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                grecaptcha.ready(function() {
-                    grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {action: 'ppdb_register'}).then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
-                        ppdbForm.submit();
-                    });
-                });
-            });
-        }
-    </script>
-    @endpush
-    @endif
-</x-layouts.app>
+    </x-layouts.app>

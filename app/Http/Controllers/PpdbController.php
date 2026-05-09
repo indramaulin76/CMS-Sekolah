@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\PpdbPeriod;
 use App\Models\PpdbRegistration;
-use App\Rules\ReCaptcha;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -21,9 +20,6 @@ class PpdbController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
-            // reCAPTCHA validation
-            'g-recaptcha-response' => ['nullable', new ReCaptcha],
-            
             'full_name' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
             'birth_place' => 'required|string|max:100',

@@ -73,6 +73,36 @@
         </div>
     </section>
 
+    {{-- Flash Messages --}}
+    @if(session('success') || session('error') || session('info'))
+    <div class="container mx-auto px-4 lg:px-8 mt-4">
+        @if(session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 rounded shadow" role="alert">
+            <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2"></i>
+                <span>{{ session('success') }}</span>
+            </div>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-800 px-4 py-3 rounded shadow" role="alert">
+            <div class="flex items-center">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span>{{ session('error') }}</span>
+            </div>
+        </div>
+        @endif
+        @if(session('info'))
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 px-4 py-3 rounded shadow" role="alert">
+            <div class="flex items-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                <span>{{ session('info') }}</span>
+            </div>
+        </div>
+        @endif
+    </div>
+    @endif
+
     {{-- Main Content --}}
     <main class="flex-grow">
         {{ $slot }}

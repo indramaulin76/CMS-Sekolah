@@ -91,7 +91,7 @@
                 {{-- Contact Form --}}
                 <div class="bg-white dark:bg-surface-dark rounded-xl p-6 shadow-lg">
                     <h3 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">Kirim Pesan</h3>
-                    <form action="#" method="POST" class="space-y-4">
+                    <form action="{{ route('pages.kontak.send') }}" method="POST" class="space-y-4">
                         @csrf
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nama Lengkap</label>

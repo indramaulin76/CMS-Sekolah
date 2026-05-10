@@ -85,11 +85,11 @@
             <div>
                 <h5 class="text-lg font-bold mb-6 text-white border-l-4 border-secondary pl-3">Berlangganan</h5>
                 <p class="text-gray-200 text-sm mb-4">Dapatkan informasi terbaru mengenai kegiatan sekolah.</p>
-                <form class="space-y-3" action="#" method="POST">
+                <form class="space-y-3" action="{{ route('newsletter.subscribe') }}" method="POST">
                     @csrf
-                    <input type="email" 
-                           class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-sm text-white focus:outline-none focus:border-secondary" 
-                           placeholder="Email Anda" 
+                    <input type="email" name="email"
+                           class="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-sm text-white focus:outline-none focus:border-secondary"
+                           placeholder="Email Anda"
                            required>
                     <button type="submit" class="w-full bg-secondary text-primary font-bold py-2 rounded text-sm hover:bg-yellow-400 transition-colors">
                         Subscribe

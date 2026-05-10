@@ -1,0 +1,34 @@
+CATATAN DEPLOY - CMS SMA TUNAS HARAPAN
+========================================
+Setelah update file dari GitHub, lakukan langkah berikut:
+
+1. EDIT .ENV
+   nano .env
+   - Sesuaikan APP_URL, DB_*, MAIL_* (Gmail SMTP) sesuai server
+
+2. JALANKAN MIGRATION (hanya buat tabel baru, data lama aman)
+   php artisan migrate --force
+
+3. BERSIHKAN CACHE
+   php artisan optimize:clear
+
+4. SET PERMISSION (jika perlu)
+   chmod -R 775 storage bootstrap/cache
+   chown -R www-data:www-data storage bootstrap/cache bootstrap/cache
+
+5. TEST
+   - Buka website: https://smatunasharapan.site/
+   - Coba subscribe newsletter di footer
+   - Coba form kontak di /hubungi-kami
+   - Login admin di /SMATHADMIN
+   - Buka menu Penguin > Newsletter, kirim test email
+
+FITUR BARU:
+- Newsletter subscribe (footer) + Kirim dari admin panel
+- Form kontak kirim email
+- Flash message notifikasi
+- Halaman admin Newsletter di Penguin > Newsletter
+
+AKUN ADMIN:
+- Email: admin@cms-sekolah.test
+- Password: admin123

@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::get('/profil', [PageController::class, 'profil'])->name('pages.profil');
 Route::get('/visi-misi', [PageController::class, 'visiMisi'])->name('pages.visi-misi');
 Route::get('/organisasi', [PageController::class, 'organisasi'])->name('pages.organisasi');
 Route::get('/hubungi-kami', [PageController::class, 'kontak'])->name('pages.kontak');
+Route::post('/hubungi-kami', [PageController::class, 'sendContact'])->name('pages.kontak.send');
 Route::get('/sambutan-kepala-sekolah', [PageController::class, 'sambutanKepsek'])->name('pages.sambutan');
 
 // PPDB
@@ -60,3 +62,6 @@ Route::get('/cari', [PostController::class, 'search'])->name('posts.search');
 
 // Admin Export (protected by auth middleware in controller)
 Route::get('/admin/ppdb/export-pdf/{code}', [PpdbController::class, 'exportPdf'])->name('admin.ppdb.export-pdf')->middleware('auth');
+
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\Headmaster;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class PageController extends Controller
@@ -88,6 +91,30 @@ class PageController extends Controller
             'footer_text' => '© 2024 SMA Tunas Harapan',
         ];
         return view('pages.kontak', compact('page', 'settings'));
+    }
+
+    public function sendContact(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'subject' => ['required', 'string', 'max:255'],
+            'message' => ['required', 'string', 'max:5000'],
+        ]);
+
+        $settings = \App\Models\GeneralSetting::first();
+        $toEmail = $settings?->email ?? 'info@smatunasharapan.sch.id';
+
+        Mail::raw(
+            "Nama: {$validated['name']}\nEmail: {$validated['email']}\nSubjek: {$validated['subject']}\n\nPesan:\n{$validated['message']}",
+            function ($msg) use ($validated, $toEmail) {
+                $msg->to($toEmail)
+                    ->subject("Pesan Kontak: {$validated['subject']}")
+                    ->replyTo($validated['email'], $validated['name']);
+            }
+        );
+
+        return back()->with('success', 'Pesan Anda berhasil dikirim. Kami akan menghubungi Anda segera.');
     }
 
     public function sambutanKepsek(): View

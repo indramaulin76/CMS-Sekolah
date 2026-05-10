@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WelcomeMail;
 use App\Models\NewsletterSubscriber;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NewsletterController extends Controller
 {
@@ -27,6 +29,10 @@ class NewsletterController extends Controller
             'subscribed_at' => now(),
         ]);
 
-        return back()->with('success', 'Terima kasih! Email Anda berhasil didaftarkan.');
+        Mail::to($validated['email'])->send(
+            new WelcomeMail($validated['email'], $validated['name'] ?? null)
+        );
+
+        return back()->with('success', 'Terima kasih! Email selamat datang sudah dikirim ke ' . $validated['email']);
     }
 }

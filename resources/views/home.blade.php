@@ -62,21 +62,22 @@
                     <div class="p-6">
                         <div class="flex items-center text-sm text-primary dark:text-secondary mb-2">
                             <i class="far fa-calendar-alt mr-2"></i>
-                            {{ $event->event_date->translatedFormat('d F Y') }}
-                            @if($event->event_time)
+                            {{ $event->start_date->translatedFormat('d F Y') }}
+                            @if($event->end_date)
                                 <span class="mx-2">•</span>
-                                <i class="far fa-clock mr-1"></i>
-                                {{ \Carbon\Carbon::parse($event->event_time)->format('H:i') }}
+                                {{ $event->end_date->translatedFormat('d F Y') }}
                             @endif
                         </div>
                         <h4 class="text-lg font-bold text-gray-800 dark:text-white mb-2 line-clamp-2">
                             {{ $event->title }}
                         </h4>
-                        <p class="text-gray-800 dark:text-gray-200 text-sm flex items-center">
-                            <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
-                            {{ $event->location }}
-                        </p>
-                        <a href="{{ route('events.show', $event->slug) }}" class="inline-block mt-4 text-sm font-semibold text-primary dark:text-secondary hover:underline">
+                        @if($event->location)
+                            <p class="text-gray-800 dark:text-gray-200 text-sm flex items-center">
+                                <i class="fas fa-map-marker-alt mr-2 text-secondary"></i>
+                                {{ $event->location }}
+                            </p>
+                        @endif
+                        <a href="{{ $event->source === 'post' ? route('posts.show', $event->slug) : route('events.show', $event->slug) }}" class="inline-block mt-4 text-sm font-semibold text-primary dark:text-secondary hover:underline">
                             Detail <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>

@@ -54,7 +54,8 @@ class SitemapController extends Controller
         }
 
         // Events
-        $events = Event::orderBy('date', 'desc')
+        $events = Event::published()
+            ->orderBy('start_date', 'desc')
             ->limit(50)
             ->get();
 
@@ -71,7 +72,7 @@ class SitemapController extends Controller
         $galleries = Gallery::orderBy('created_at', 'desc')->get();
         foreach ($galleries as $gallery) {
             $sitemap .= $this->addUrl(
-                route('pages.galeri') . '#gallery-' . $gallery->id,
+                route('galleries.index') . '#gallery-' . $gallery->id,
                 $gallery->updated_at,
                 'monthly',
                 '0.6'

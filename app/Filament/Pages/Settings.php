@@ -93,11 +93,14 @@ class Settings extends Page implements Forms\Contracts\HasForms
                         
                         Forms\Components\Tabs\Tab::make('Hero Section')
                             ->schema([
-                                Forms\Components\FileUpload::make('hero_image')
-                                    ->label('Gambar Hero')
+                                Forms\Components\FileUpload::make('hero_images')
+                                    ->label('Foto Hero')
                                     ->image()
-                                    ->directory('settings')
-                                    ->helperText('Rekomendasi ukuran: 1920x1080 px (16:9). Minimal: 1280x720 px.'),
+                                    ->multiple()
+                                    ->maxFiles(10)
+                                    ->reorderable()
+                                    ->directory('settings/hero')
+                                    ->helperText('Upload 1-10 foto. Ukuran rekomendasi: 1920x1080 px (16:9). Foto pertama menjadi gambar utama untuk SEO dan foto akan berganti otomatis setiap 6 detik.'),
                                 Forms\Components\TextInput::make('hero_title')
                                     ->label('Judul Hero'),
                                 Forms\Components\Textarea::make('hero_subtitle')
@@ -129,6 +132,14 @@ class Settings extends Page implements Forms\Contracts\HasForms
     public function save(): void
     {
         $data = $this->form->getState();
+
+        // Keep the legacy field in sync for older views and integrations.
+        if (array_key_exists('hero_images', $data)) {
+            $heroImages = is_array($data['hero_images']) ? $data['hero_images'] : [];
+            $heroImages = array_values($heroImages);
+            $data['hero_images'] = $heroImages;
+            $data['hero_image'] = $heroImages[0] ?? null;
+        }
 
         $settings = GeneralSetting::first();
         

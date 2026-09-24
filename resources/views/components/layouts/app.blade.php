@@ -1,3 +1,21 @@
+@php
+    $heroImage = null;
+
+    if ($settings && method_exists($settings, 'heroImageForSeo')) {
+        $heroImage = $settings->heroImageForSeo();
+    } elseif ($settings) {
+        $configuredHeroImages = $settings->hero_images ?? null;
+
+        if (is_string($configuredHeroImages)) {
+            $configuredHeroImages = json_decode($configuredHeroImages, true);
+        }
+
+        $heroImage = is_array($configuredHeroImages)
+            ? ($configuredHeroImages[0] ?? null)
+            : ($settings->hero_image ?? null);
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="">
 <head>
@@ -19,7 +37,7 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? $settings->school_name ?? 'SMA Tunas Harapan' }}">
     <meta property="og:description" content="{{ $metaDescription ?? $settings->meta_description ?? 'SMA Tunas Harapan - Membentuk generasi cerdas dan berkarakter' }}">
-    <meta property="og:image" content="{{ $ogImage ?? ($settings->hero_image ? Storage::url($settings->hero_image) : asset('storage/settings/hero_school.png')) }}">
+    <meta property="og:image" content="{{ $ogImage ?? ($heroImage ? Storage::url($heroImage) : asset('storage/settings/hero_school.png')) }}">
     <meta property="og:site_name" content="{{ $settings->school_name ?? config('app.name') }}">
     <meta property="og:locale" content="id_ID">
 
@@ -28,7 +46,7 @@
     <meta name="twitter:url" content="{{ url()->current() }}">
     <meta name="twitter:title" content="{{ $title ?? $settings->school_name ?? 'SMA Tunas Harapan' }}">
     <meta name="twitter:description" content="{{ $metaDescription ?? $settings->meta_description ?? 'SMA Tunas Harapan - Membentuk generasi cerdas dan berkarakter' }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? ($settings->hero_image ? Storage::url($settings->hero_image) : asset('storage/settings/hero_school.png')) }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? ($heroImage ? Storage::url($heroImage) : asset('storage/settings/hero_school.png')) }}">
 
     <!-- Additional SEO -->
     <meta name="geo.region" content="ID-JK">

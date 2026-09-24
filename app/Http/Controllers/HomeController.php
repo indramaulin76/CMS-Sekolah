@@ -23,11 +23,10 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        $upcomingEvents = Event::published()
-            ->upcoming()
-            ->orderBy('start_date')
+        $upcomingEvents = Event::agendaItems()
+            ->filter(fn ($item): bool => $item->start_date !== null && $item->start_date->greaterThanOrEqualTo(now()))
             ->take(3)
-            ->get();
+            ->values();
 
         $headmaster = Headmaster::active()->first();
         

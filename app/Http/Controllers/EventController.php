@@ -9,16 +9,19 @@ class EventController extends Controller
 {
     public function index(): View
     {
-        $upcomingEvents = Event::published()
-            ->upcoming()
-            ->orderBy('start_date', 'asc')
-            ->paginate(9);
+        $agendaItems = Event::agendaItems();
+        $now = now();
 
-        $pastEvents = Event::published()
-            ->where('start_date', '<', now())
-            ->orderBy('start_date', 'desc')
+        $upcomingEvents = $agendaItems
+            ->filter(fn ($item): bool => $item->start_date !== null && $item->start_date->greaterThanOrEqualTo($now))
+            ->take(9)
+            ->values();
+
+        $pastEvents = $agendaItems
+            ->filter(fn ($item): bool => $item->start_date !== null && $item->start_date->lessThan($now))
+            ->sortByDesc('start_date')
             ->take(5)
-            ->get();
+            ->values();
             
         $settings = \App\Models\GeneralSetting::first() ?? (object) [
             'school_name' => 'SMA Tunas Harapan',
@@ -43,12 +46,11 @@ class EventController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $upcomingEvents = Event::published()
-            ->upcoming()
-            ->where('id', '!=', $event->id)
-            ->orderBy('start_date')
+        $upcomingEvents = Event::agendaItems()
+            ->filter(fn ($item): bool => $item->start_date !== null && $item->start_date->greaterThanOrEqualTo(now()))
+            ->reject(fn ($item): bool => $item->source === 'event' && $item->id === $event->id)
             ->take(3)
-            ->get();
+            ->values();
 
         $settings = \App\Models\GeneralSetting::first();
 

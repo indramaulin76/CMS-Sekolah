@@ -48,27 +48,20 @@ class EventResource extends Resource
 
                 Forms\Components\Section::make('Detail Pelaksanaan')
                     ->schema([
-                        Forms\Components\DatePicker::make('event_date')
-                            ->label('Tanggal Pelaksanaan')
+                        Forms\Components\DateTimePicker::make('start_date')
+                            ->label('Tanggal & Waktu Mulai')
                             ->required()
                             ->native(false),
 
-                        Forms\Components\TimePicker::make('event_time')
-                            ->label('Waktu')
-                            ->native(false),
+                        Forms\Components\DateTimePicker::make('end_date')
+                            ->label('Tanggal & Waktu Selesai')
+                            ->native(false)
+                            ->after('start_date'),
 
                         Forms\Components\TextInput::make('location')
                             ->label('Lokasi')
                             ->required()
                             ->maxLength(255),
-
-                        Forms\Components\TextInput::make('organizer')
-                            ->label('Penyelenggara')
-                            ->maxLength(255),
-
-                        Forms\Components\TextInput::make('participants_count')
-                            ->label('Jumlah Peserta')
-                            ->numeric(),
                     ])
                     ->columns(2),
 
@@ -82,8 +75,17 @@ class EventResource extends Resource
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->directory('events'),
 
-                        Forms\Components\Toggle::make('is_published')
-                            ->label('Dipublikasikan')
+                        Forms\Components\Select::make('status')
+                            ->label('Status')
+                            ->options([
+                                'draft' => 'Draft',
+                                'published' => 'Dipublikasikan',
+                            ])
+                            ->required()
+                            ->default('draft'),
+
+                        Forms\Components\Toggle::make('is_featured')
+                            ->label('Agenda Unggulan')
                             ->default(false),
                     ]),
             ]);
@@ -103,22 +105,30 @@ class EventResource extends Resource
                     ->sortable()
                     ->limit(40),
 
-                Tables\Columns\TextColumn::make('event_date')
+                Tables\Columns\TextColumn::make('start_date')
                     ->label('Tanggal')
-                    ->date('d M Y')
+                    ->dateTime('d M Y H:i')
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('location')
                     ->label('Lokasi')
                     ->limit(30),
 
-                Tables\Columns\IconColumn::make('is_published')
-                    ->label('Dipublikasi')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'published' => 'success',
+                        default => 'gray',
+                    }),
             ])
             ->filters([
-                Tables\Filters\TernaryFilter::make('is_published')
-                    ->label('Status Publikasi'),
+                Tables\Filters\SelectFilter::make('status')
+                    ->label('Status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Dipublikasikan',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -129,7 +139,7 @@ class EventResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('event_date', 'desc');
+            ->defaultSort('start_date', 'desc');
     }
 
     public static function getPages(): array

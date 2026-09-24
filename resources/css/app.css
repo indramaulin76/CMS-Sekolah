@@ -109,6 +109,34 @@ select:focus {
     box-shadow: 0 12px 24px -4px rgba(0, 0, 0, 0.1);
 }
 
+/* Hero slider */
+[x-cloak] {
+    display: none !important;
+}
+
+.hero-slide-image {
+    will-change: transform;
+}
+
+.hero-slide.is-active .hero-slide-image {
+    animation: hero-ken-burns 6s ease-out both;
+}
+
+@keyframes hero-ken-burns {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.08);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-slide.is-active .hero-slide-image {
+        animation: none;
+    }
+}
+
 /* Badge color variants */
 .badge-blue {
     @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200;

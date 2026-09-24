@@ -40,7 +40,7 @@
                         {{ $event->location }}
                     </p>
                     @endif
-                    <a href="{{ route('events.show', $event->slug) }}" class="inline-flex items-center text-sm font-semibold text-primary dark:text-secondary hover:underline">
+                    <a href="{{ $event->source === 'post' ? route('posts.show', $event->slug) : route('events.show', $event->slug) }}" class="inline-flex items-center text-sm font-semibold text-primary dark:text-secondary hover:underline">
                         Lihat Detail <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -54,7 +54,7 @@
         </div>
         
         {{-- Pagination --}}
-        @if($upcomingEvents->hasPages())
+        @if(method_exists($upcomingEvents, 'hasPages') && $upcomingEvents->hasPages())
         <div class="mb-12">
             {{ $upcomingEvents->links() }}
         </div>
@@ -81,10 +81,12 @@
                     </div>
                     <div>
                         <h4 class="font-semibold text-gray-700 dark:text-gray-300">{{ $event->title }}</h4>
+                        @if($event->location)
                         <p class="text-sm text-gray-700">{{ $event->location }}</p>
+                        @endif
                     </div>
                 </div>
-                <a href="{{ route('events.show', $event->slug) }}" class="text-primary dark:text-secondary text-sm hover:underline">
+                <a href="{{ $event->source === 'post' ? route('posts.show', $event->slug) : route('events.show', $event->slug) }}" class="text-primary dark:text-secondary text-sm hover:underline">
                     Detail
                 </a>
             </div>
